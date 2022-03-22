@@ -1,0 +1,199 @@
+@import "../../styles/variables";
+
+.navbar_outer {
+  width: 100%;
+  height: 70px;
+  background-color: $secondary-color;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+}
+
+.logo {
+  height: 60px;
+  width: fit-content;
+}
+
+.logo img {
+  height: 100%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.buy_tgr {
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  cursor: pointer;
+  transition: 100ms;
+}
+
+.buy_tgr:hover > .buy_tgr_dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.buy_tgr:hover > p {
+  color: $light-text;
+}
+
+.buy_tgr_dropdown {
+  position: absolute;
+  width: fit-content;
+  min-width: 150px;
+  top: 20px;
+  right: 0%;
+  background-color: $secondary-color;
+  padding: 10px;
+  border-radius: 11px;
+  box-shadow: 0px 5px 40px rgba(0, 0, 0, 0.25);
+  transition: 250ms;
+  transform: scale(0);
+  opacity: 0;
+  visibility: hidden;
+
+  a:hover {
+    color: white;
+  }
+}
+
+.buy_tgr_dropdown ul {
+  list-style: none;
+  line-height: 20px;
+}
+
+.buy_tgr_dropdown li {
+  padding: 10px 10px;
+  font-size: 1.1rem;
+  transition: 300ms;
+  margin-top: 2px;
+  border-radius: 7px;
+}
+
+.buy_tgr_dropdown li:hover {
+  background-color: #cbcbcb54;
+}
+
+a {
+  cursor: pointer;
+  transition: 100ms;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $light-text;
+}
+
+.landing_page_links,
+.app_links {
+  list-style: none;
+  display: flex;
+}
+
+.landing_page_links {
+  justify-content: space-around;
+  width: 100%;
+}
+
+.landing_page_links li,
+.app_links li {
+  position: relative;
+  margin: 0px 2px;
+}
+
+.landing_page_links li input,
+.app_links li input {
+  position: absolute;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  right: 0px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.app_links {
+  justify-content: space-around;
+  width: 20%;
+  margin-left: 50%;
+}
+
+.landing_page_links li input:checked ~ .highlighter,
+.app_links li input:checked ~ .highlighter {
+  opacity: 1;
+}
+
+.landing_page_links li input:hover ~ .highlighter,
+.app_links li input:hover ~ .highlighter {
+  display: block;
+  opacity: 1;
+}
+
+.highlighter {
+  height: 3px;
+  width: 70%;
+  border-radius: 10px;
+  padding: 0px 20px;
+  position: absolute;
+  background-color: $trigger-yellow;
+  display: table;
+  left: 0px;
+  right: 0px;
+  bottom: -5px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: 100ms;
+}
+
+.app_button {
+  width: 18%;
+  text-align: center;
+}
+
+.app_button button {
+  padding: 10px 18px;
+  background-color: $trigger-yellow;
+  border: none;
+  font-weight: 800;
+  border-radius: 5px;
+  transition: 500ms;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.app_button button:hover {
+  background-color: $trigger-yellow-hower;
+}
+
+@media only screen and (max-width: 1000px) {
+  .landing_page_links li,
+  .app_links li {
+    font-size: 0.8rem;
+  }
+
+  .app_button button {
+    font-size: 0.8rem;
+  }
+
+  #dropdown_icon {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .app_button {
+    font-size: 0.8rem;
+    width: fit-content;
+  }
+  .landing_page_links {
+    display: none;
+  }
+}
