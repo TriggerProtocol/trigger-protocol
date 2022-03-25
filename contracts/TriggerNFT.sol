@@ -6,7 +6,6 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 interface IERC20 {
-
     function balanceOf(address account) external view returns (uint256);
 
     function transfer(address to, uint256 amount) external returns (bool);
@@ -90,18 +89,13 @@ contract TriggerNFT is ERC721URIStorage {
         _portalNfts[_tokenId].price = _price;
     }
 
-    function buyNft(uint256 _tokenId, IERC20 _triggerToken) public {
+    function transferNFT(uint256 _tokenId) public returns (uint256, address) {
         address currentOwner = _portalNfts[_tokenId].currentOwner;
         uint256 price = _portalNfts[_tokenId].price;
-        require(
-            _triggerToken.balanceOf(msg.sender) >= price,
-            "Insufficient balance"
-        );
         _transfer(currentOwner, msg.sender, _tokenId);
-        _triggerToken.approve(address(this), price);
-        _triggerToken.transferFrom(msg.sender, currentOwner, price);
         _portalNfts[_tokenId].previousOwner = currentOwner;
         _portalNfts[_tokenId].currentOwner = msg.sender;
         _portalNfts[_tokenId].forSale = false;
+        return (price, currentOwner);
     }
 }

@@ -57,7 +57,9 @@ interface IERC721 {
 
     function updateListingPrice(uint256 price, uint256 tokenId) external;
 
-    function buyNft(uint256 tokenId, IERC20 triggerToken) external;
+    function transferNFT(uint256 tokenId)
+        external
+        returns (uint256 amount, address owner);
 
     function safeTransferFrom(
         address from,
@@ -73,6 +75,9 @@ interface IERC721 {
 }
 
 contract TriggerProtocol {
+    /* ========== Events ========== */
+    //add events here
+    
     using Counters for Counters.Counter;
     Counters.Counter private _portalIds;
     IERC20 public triggerTokenFactory;
@@ -82,6 +87,7 @@ contract TriggerProtocol {
     address private owner;
 
     uint256 LOCKIN_PEROID = 1 seconds; //change to 30 days
+    uint256 REWARD_RATE = 1; //change to 30 days
 
     struct Portal {
         string dbThreadID;
@@ -105,6 +111,7 @@ contract TriggerProtocol {
     constructor() {
         owner = msg.sender;
     }
+    /* ========== Modifiers ========== */
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
@@ -117,7 +124,7 @@ contract TriggerProtocol {
         );
         _;
     }
-
+    /* ========== Public Functions ========== */
     function setFactoryAddresses(
         address _triggerTokenAddress,
         address _triggerXpTokenAddress,
@@ -190,7 +197,10 @@ contract TriggerProtocol {
     }
 
     function buyNft(uint256 tokenId) public {
-        triggerNFTtokenFactory.buyNft(tokenId, triggerTokenFactory);
+        (uint256 amount, address currentOwner) = triggerNFTtokenFactory
+            .transferNFT(tokenId);
+        triggerTokenFactory.approve(address(this), amount);
+        triggerTokenFactory.transferFrom(msg.sender, currentOwner, amount);
     }
 
     function withdraw(uint256 _portalId) public onlyJoined(_portalId) {
@@ -217,5 +227,9 @@ contract TriggerProtocol {
             }
         }
         totalStaked[_portalId] -= _amount;
+    }
+
+    function rewardStakers(uint256 _portalId,uint256 _amount) internal {
+
     }
 }
