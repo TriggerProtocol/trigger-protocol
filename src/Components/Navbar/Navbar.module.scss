@@ -8,6 +8,7 @@
   align-items: center;
   position: sticky;
   top: 0px;
+  z-index: 1000;
 }
 
 .logo {
@@ -118,12 +119,14 @@ a:hover {
   right: 0px;
   opacity: 0;
   cursor: pointer;
+  display: none;
 }
 
 .app_links {
   justify-content: space-around;
   width: 20%;
   margin-left: 50%;
+  margin-right: 10px;
 }
 
 .landing_page_links li input:checked ~ .highlighter,
@@ -131,8 +134,8 @@ a:hover {
   opacity: 1;
 }
 
-.landing_page_links li input:hover ~ .highlighter,
-.app_links li input:hover ~ .highlighter {
+.landing_page_links a:hover > li > .highlighter,
+.app_links a:hover > li > .highlighter {
   display: block;
   opacity: 1;
 }
@@ -174,9 +177,15 @@ a:hover {
 }
 
 @media only screen and (max-width: 1000px) {
-  .landing_page_links li,
-  .app_links li {
+  .landing_page_links li {
     font-size: 0.8rem;
+  }
+
+  .app_links {
+    margin-left: 0px;
+    li {
+      margin-left: 10px;
+    }
   }
 
   .app_button button {
@@ -194,6 +203,12 @@ a:hover {
     width: fit-content;
   }
   .landing_page_links {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 558px) {
+  .app_links {
     display: none;
   }
 }
