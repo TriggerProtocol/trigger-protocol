@@ -9,7 +9,7 @@ import polygon from "../../assets/logos/png/polygon.png";
 import ipfs from "../../assets/logos/png/ipfs.png";
 import the_graph from "../../assets/logos/png/the_graph.png";
 import livepeer from "../../assets/logos/png/livepeer.png";
-import { ScrollDown } from "../ScrollDown";
+import { ScrollDown } from "../../Components/ScrollDown";
 
 export const Home = () => {
   return (
