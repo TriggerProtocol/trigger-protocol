@@ -1,0 +1,63 @@
+@import "styles/_variables.scss";
+.card {
+  width: 500px;
+  height: 300px;
+  border-radius: 15px;
+  background-color: $secondary-color;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  cursor: pointer;
+  .stream_thumbnail {
+    position: relative;
+    flex: 2;
+    height: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  .watch_now_bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      padding: 8px 10px;
+      border-radius: 7px;
+      background-color: rgba($color: #ffff, $alpha: 0.2);
+      // filter: blur(10px);
+      display: none;
+      font-size: 1em;
+      font-weight: 600;
+    }
+  }
+  &:hover > .stream_thumbnail {
+    .watch_now_bg {
+      background-color: rgba($color: #000000, $alpha: 0.2);
+      button {
+        display: block;
+      }
+    }
+  }
+  .streamdetails {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    .stream_title {
+      h3 {
+        font-size: 1.5em;
+        font-weight: 400;
+        margin-bottom: 5px;
+      }
+    }
+    .viewers_count {
+      align-self: flex-end;
+    }
+  }
+}

@@ -5,6 +5,8 @@ import { Icon } from "@iconify/react";
 import { NFTcard } from "Components/NFTcard";
 import { AddressInfo } from "Components/AddressInfo";
 import { SectionTitle } from "pages/Home";
+
+import { LiveStreamCard } from "Components/LiveStreamCard";
 //styles
 import styles from "./Portalpage.module.scss";
 
@@ -118,6 +120,27 @@ const LiveStreamSection = () => {
   return (
     <div className={styles.livestream_section}>
       <SectionTitle sectionName="Live Streams" />
+      <div className={styles.streams_wrapper}>
+        <div className={styles.streams_list}>
+          {" "}
+          {[1, 2, 3, 4, 5].map((index) => {
+            return (
+              <div className={styles.stream_card}>
+                <LiveStreamCard key={index} />
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.create_stream}>
+          <div className={styles.create_stream_wrapper}>
+            <div className={styles.layer_blur}></div>
+
+            <div className={`${styles.create} solid_border`}>
+              <p>Create Live Stream</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
