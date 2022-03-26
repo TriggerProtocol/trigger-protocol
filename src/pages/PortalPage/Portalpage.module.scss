@@ -5,7 +5,7 @@
   height: fit-content;
   padding: 10px;
 }
-
+//portal main section
 .main_section {
   width: 100%;
   height: 650px;
@@ -113,7 +113,7 @@
     }
   }
 }
-
+//portal nft section
 .nft_section {
   position: relative;
   margin-top: 25px;
@@ -136,7 +136,11 @@
     gap: 15px;
   }
 }
-
+//live stream section
+.livestream_section {
+  margin: 20px 0;
+}
+//utils
 //stats
 .stat {
   margin-right: 10px;
