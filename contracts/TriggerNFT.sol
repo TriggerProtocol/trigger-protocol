@@ -11,6 +11,7 @@ contract TriggerNFT is ERC721URIStorage {
 
     struct PortalNft {
         uint256 tokenId;
+        uint256 portalId;
         string tokenURI;
         address mintedBy;
         address currentOwner;
@@ -28,7 +29,10 @@ contract TriggerNFT is ERC721URIStorage {
         _;
     }
 
-    function mintToken(string memory tokenURI) public returns (uint256) {
+    function mintToken(string memory tokenURI, uint256 _portalId)
+        public
+        returns (uint256)
+    {
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
 
@@ -37,6 +41,7 @@ contract TriggerNFT is ERC721URIStorage {
 
         PortalNft memory pNft = PortalNft(
             newTokenId,
+            _portalId,
             tokenURI,
             msg.sender,
             msg.sender,
@@ -81,6 +86,8 @@ contract TriggerNFT is ERC721URIStorage {
         public
         view
         returns (
+            string memory,
+            uint256,
             address,
             address,
             address,
@@ -91,6 +98,8 @@ contract TriggerNFT is ERC721URIStorage {
         PortalNft memory pnft = _portalNfts[_tokenId];
 
         return (
+            pnft.tokenURI,
+            pnft.portalId,
             pnft.mintedBy,
             pnft.currentOwner,
             pnft.previousOwner,
