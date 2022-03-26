@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { PortalPage } from "./pages/PortalPage";
 import { Navbar } from "./Components/Navbar";
 import { Footer } from "./Components/Footer";
+import { PortalCard } from "./Components/PortalCard";
 
 function App() {
   return (
@@ -12,10 +13,11 @@ function App() {
       <main className="container">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="dev" element={<PortalCard />} />
           <Route path="/portal/:portalId" element={<PortalPage />} />
         </Routes>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
