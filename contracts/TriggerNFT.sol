@@ -68,13 +68,34 @@ contract TriggerNFT is ERC721URIStorage {
         _portalNfts[_tokenId].price = _price;
     }
 
-    function transferNFT(uint256 _tokenId) public returns (uint256, address) {
+    function transferNFT(uint256 _tokenId) public {
         address currentOwner = _portalNfts[_tokenId].currentOwner;
-        uint256 price = _portalNfts[_tokenId].price;
+        require(_portalNfts[_tokenId].forSale, "Nft not for sale");
         _transfer(currentOwner, msg.sender, _tokenId);
         _portalNfts[_tokenId].previousOwner = currentOwner;
         _portalNfts[_tokenId].currentOwner = msg.sender;
         _portalNfts[_tokenId].forSale = false;
-        return (price, currentOwner);
+    }
+
+    function getNFTdetails(uint256 _tokenId)
+        public
+        view
+        returns (
+            address,
+            address,
+            address,
+            bool,
+            uint256
+        )
+    {
+        PortalNft memory pnft = _portalNfts[_tokenId];
+
+        return (
+            pnft.mintedBy,
+            pnft.currentOwner,
+            pnft.previousOwner,
+            pnft.forSale,
+            pnft.price
+        );
     }
 }

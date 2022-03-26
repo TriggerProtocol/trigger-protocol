@@ -57,9 +57,18 @@ interface IERC721 {
 
     function updateListingPrice(uint256 price, uint256 tokenId) external;
 
-    function transferNFT(uint256 tokenId)
+    function transferNFT(uint256 tokenId) external;
+
+    function getNFTdetails(uint256 tokenId)
         external
-        returns (uint256 amount, address owner);
+        view
+        returns (
+            address mintedBy,
+            address currentOwner,
+            address previosOwner,
+            bool forSale,
+            uint256 price
+        );
 
     function safeTransferFrom(
         address from,
@@ -233,16 +242,30 @@ contract TriggerProtocol {
     }
 
     function buyNft(uint256 tokenId) public {
-        (uint256 amount, address currentOwner) = triggerNFTtokenFactory
-            .transferNFT(tokenId);
-        triggerTokenFactory.approve(address(this), amount);
-        triggerTokenFactory.transferFrom(msg.sender, currentOwner, amount);
+        (
+            address mintedBy,
+            address currentOwner,
+            address previosOwner,
+            bool forSale,
+            uint256 price
+        ) = triggerNFTtokenFactory.getNFTdetails(tokenId);
+        require(
+            triggerTokenFactory.allowance(msg.sender, address(this)) >= price,
+            "please approve token"
+        );
+        triggerNFTtokenFactory.transferNFT(tokenId);
+        triggerTokenFactory.transferFrom(msg.sender, currentOwner, price);
     }
 
     function stake(uint256 _portalId, uint256 _amount)
         public
         onlyJoined(_portalId)
     {
+        require(
+            triggerXpTokenFactory.allowance(msg.sender, address(this)) >=
+                _amount,
+            "please approve token"
+        );
         //change to triggerTokenFactory
         triggerXpTokenFactory.transferFrom(msg.sender, address(this), _amount);
         StakingData memory _stakeDet = StakingData(
