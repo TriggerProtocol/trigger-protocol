@@ -49,7 +49,7 @@ interface IERC721 {
 
     function ownerOf(uint256 tokenId) external view returns (address owner);
 
-    function mintToken(string memory tokenURI)
+    function mintToken(string memory tokenURI, uint256 portalId)
         external
         returns (uint256 tokenId);
 
@@ -63,6 +63,8 @@ interface IERC721 {
         external
         view
         returns (
+            string memory tokenURI,
+            uint256 portalId,
             address mintedBy,
             address currentOwner,
             address previosOwner,
@@ -217,7 +219,10 @@ contract TriggerProtocol {
         public
         onlyJoined(_portalId)
     {
-        uint256 tokenId = triggerNFTtokenFactory.mintToken(_tokenURI);
+        uint256 tokenId = triggerNFTtokenFactory.mintToken(
+            _tokenURI,
+            _portalId
+        );
 
         portalNFTS[_portalId].push(tokenId);
 
@@ -243,6 +248,8 @@ contract TriggerProtocol {
 
     function buyNft(uint256 tokenId) public {
         (
+            string memory tokenURI,
+            uint256 portalId,
             address mintedBy,
             address currentOwner,
             address previosOwner,
@@ -253,8 +260,16 @@ contract TriggerProtocol {
             triggerTokenFactory.allowance(msg.sender, address(this)) >= price,
             "please approve token"
         );
+        // uint256 totalRewardsAmount = REWARD_RATE * price;
+
         triggerNFTtokenFactory.transferNFT(tokenId);
         triggerTokenFactory.transferFrom(msg.sender, currentOwner, price);
+
+        //send total rewardsAmount to contract
+        // triggerTokenFactory.transferFrom(msg.sender, address(this), totalRewardsAmount);
+
+        //distribute rewards and store in mapping for tht portal
+        // rewardStakers(portalId, totalRewardsAmount);
     }
 
     function stake(uint256 _portalId, uint256 _amount)
@@ -306,5 +321,11 @@ contract TriggerProtocol {
         emit Staked(_portalId, msg.sender, 0, 0);
     }
 
-    function rewardStakers(uint256 _portalId, uint256 _amount) internal {}
+    function rewardStakers(uint256 _portalId, uint256 _totalRewardAmount) internal {
+        //split rewards and store in mapping with portal id
+    }
+
+    function claimRewards(uint256 _portalId) public {
+        //transfer tokens from contract to msg.sender if he has any claimable token
+    }
 }
