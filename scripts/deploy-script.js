@@ -34,7 +34,7 @@ async function main() {
   console.log("xTGR token Contract deployed to:", triggerXpToken.address);
   console.log("NFT token Contract deployed to:", triggerNftToken.address);
   console.log(
-    "Trigger Protocol token Contract deployed to:",
+    "Trigger Protocol Contract deployed to:",
     triggerProtocol.address
   );
 }
