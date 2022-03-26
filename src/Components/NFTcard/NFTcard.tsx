@@ -28,8 +28,8 @@ export const NFTcard = () => {
                 </div>
               </div>
               <div className={styles.button_wrap}>
-                <button className="sm-btn">Buy Now</button>
-                <button className="sm-btn">More info</button>
+                <button className="btn-sm">Buy Now</button>
+                <button className="btn-sm">More info</button>
               </div>
             </div>
           </div>

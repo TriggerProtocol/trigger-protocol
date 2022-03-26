@@ -1,20 +1,35 @@
 /* utils */
-
+// headings
+.heading1 {
+  font-size: 2em;
+  font-weight: 600;
+}
+.heading2 {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.heading3 {
+  font-size: 1.1em;
+  font-weight: 500;
+}
 .solid_border {
-    border-radius: 10px;
-    border: 4px solid #2a272a;
-  }
-  .heading1 {
-    font-size: 2em;
-    font-weight: 600;
-  }
-  
-  .sm-btn {
-    border-radius: 8px;
-    background-color: $trigger-yellow;
-    padding: 10px 15px;
-    text-align: center;
-    font-size: 1em;
-    font-weight: 600;
-  }
-  
+  border-radius: 10px;
+  border: 4px solid #2a272a;
+}
+
+.btn-sm {
+  border-radius: 8px;
+  background-color: $trigger-yellow;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: 600;
+}
+.btn-md {
+  border-radius: 8px;
+  background-color: $trigger-yellow;
+  padding: 10px 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 600;
+}

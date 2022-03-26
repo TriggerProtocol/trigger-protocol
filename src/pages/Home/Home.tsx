@@ -85,7 +85,7 @@ const Intro = () => {
   );
 };
 
-const SectionTitle = ({ sectionName }: { sectionName: string }) => {
+export const SectionTitle = ({ sectionName }: { sectionName: string }) => {
   return (
     <div className={styles.section_title}>
       <span></span>

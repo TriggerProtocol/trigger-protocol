@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-between;
     .seperator {
-      @include seperator(#ffff);
+      @include seperator(#ffff, 1px);
     }
   }
   .card_main {

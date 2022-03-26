@@ -1,4 +1,4 @@
-@mixin seperator($color) {
-  width: 1px;
+@mixin seperator($color, $width) {
+  width: $width;
   background-color: $color;
 }
