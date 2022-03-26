@@ -1,0 +1,72 @@
+@import "../../styles/variables";
+
+.portal_card {
+  width: 400px;
+  height: fit-content;
+  background-color: $secondary-color;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+
+  #portal_thumb {
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  .portal_details_wrapper {
+    position: absolute;
+    bottom: 10px;
+    width: calc(100% - 50px);
+    left: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(48px);
+    border-radius: 14px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    grid-gap: 10px;
+
+    .portal_details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+
+      h3 {
+        font-size: 1.2rem;
+        white-space: nowrap;
+      }
+
+      .portal_volume {
+        margin-top: 10px;
+        p {
+          font-size: 0.8rem;
+          color: $light-text;
+        }
+      }
+    }
+
+    .portal_members_wrapper {
+      display: flex;
+      align-items: center;
+
+      p {
+        font-size: 0.8rem;
+        margin-left: 5px;
+      }
+
+      .portal_members {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        #member_avatar:nth-child(3) {
+          grid-row: 1/3;
+        }
+      }
+    }
+  }
+}
