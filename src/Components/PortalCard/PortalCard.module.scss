@@ -2,19 +2,38 @@
 
 .portal_card {
   width: 400px;
-  height: fit-content;
+  height: 300px;
   background-color: $secondary-color;
   padding: 20px;
   margin-top: 20px;
   border-radius: 15px;
   position: relative;
   cursor: pointer;
-
   #portal_thumb {
     width: 100%;
     border-radius: 15px;
   }
-
+  .join_button {
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    button {
+      display: none;
+    }
+  }
+  &:hover > .portal_details_wrapper {
+    animation: MoveUp 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    bottom: 60px;
+  }
+  &:hover > .join_button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    button {
+      display: block;
+    }
+  }
   .portal_details_wrapper {
     position: absolute;
     bottom: 10px;
@@ -68,5 +87,14 @@
         }
       }
     }
+  }
+}
+
+@keyframes MoveUp {
+  0% {
+    bottom: 20px;
+  }
+  100% {
+    bottom: 60px;
   }
 }

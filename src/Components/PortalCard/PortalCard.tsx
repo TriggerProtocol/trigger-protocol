@@ -34,6 +34,9 @@ export const PortalCard = () => {
           <p>50+</p>
         </div>
       </div>
+      <div className={`${styles.join_button} `}>
+        <button className="btn-sm">Join Portal</button>
+      </div>
     </div>
   );
 };

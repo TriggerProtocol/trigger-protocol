@@ -125,7 +125,8 @@ export const Navbar = () => {
         ) : (
           // Links, navigation (App)
           <ul className={styles.app_links}>
-            <a
+            <Link
+              to="/explore-portals"
               onClick={() => {
                 checkPortal(true);
                 checkPorfile(false);
@@ -133,11 +134,11 @@ export const Navbar = () => {
               }}
             >
               <li>
-                Portal
+                Portals
                 <input type="radio" name="highlighter" checked={portal}></input>
                 <span className={styles.highlighter}></span>
               </li>
-            </a>
+            </Link>
             <a
               onClick={() => {
                 checkPortal(false);
