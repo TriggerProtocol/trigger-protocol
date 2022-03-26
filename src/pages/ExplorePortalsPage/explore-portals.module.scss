@@ -1,0 +1,79 @@
+@import "styles/_mixins.scss";
+@import "styles/_variables.scss";
+
+//trending section
+.container {
+  width: 100%;
+}
+.trending_portal {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  .portal {
+    position: absolute;
+    transform: scale(1.7);
+    left: 250px;
+    top: -20px;
+    width: 500px;
+    height: 500px;
+  }
+  .portal_card {
+    position: absolute;
+    transform: scale(1.2);
+    left: 180px;
+    top: 150px;
+  }
+  .portal_details {
+    position: absolute;
+    width: 50%;
+    height: 80%;
+    right: 0;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    .portal_title{
+        h1{
+            font-size: 3em;
+        }
+    }
+  }
+  .portal_stats {
+    .sub_stats {
+      margin-top: 10px;
+      display: flex;
+    }
+    .stat {
+      .data {
+        p {
+          color: $trigger-yellow;
+          font-size: 2em;
+          font-weight: 700;
+          span {
+            color: $trigger-yellow;
+
+            font-size: 0.7em;
+            font-weight: 500;
+          }
+        }
+      }
+      .title {
+        p {
+          font-size: 1.2em;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+.portals_list_container {
+  margin: 100px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.seperator {
+  margin: 0 10px;
+  @include seperator(#2a272a, 4px);
+}
