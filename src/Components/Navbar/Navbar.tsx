@@ -8,6 +8,7 @@ import "../../styles/globals.css";
 // Assets
 import tgr_logo_full from "../../assets/logos/png/tgr_logo_full.png";
 import { Link } from "react-router-dom";
+import { WalletButton } from "../WalletButton";
 
 export const Navbar = () => {
   const [landingPage, setLandingPage] = useState(false);
@@ -171,11 +172,7 @@ export const Navbar = () => {
         )}
         {/* Launch App button */}
         <div className={styles.app_button}>
-          {landingPage ? (
-            <button>Launch App</button>
-          ) : (
-            <button>Connect Wallet</button>
-          )}
+          {landingPage ? <button>Launch App</button> : <WalletButton />}
         </div>
       </div>
     </div>
