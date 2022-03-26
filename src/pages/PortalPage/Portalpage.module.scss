@@ -1,0 +1,156 @@
+@import "styles/_variables.scss";
+@import "styles/_mixins.scss";
+.container {
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+}
+//portal main section
+.main_section {
+  width: 100%;
+  height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  .hot_nft {
+    grid-row: 1/6;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .head {
+      display: flex;
+      margin-bottom: 10px;
+      justify-content: center;
+      p {
+        margin-right: 2px;
+      }
+    }
+  }
+  .portal_details {
+    grid-row: 1/3;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .app_name {
+    }
+    .app_description {
+      margin-top: 5px;
+      p {
+        font-size: 0.95em;
+      }
+    }
+    .portal_creator {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+
+      p {
+        margin-right: 10px;
+      }
+    }
+    .stats_join {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .portal_stats {
+      display: flex;
+    }
+  }
+  .portal_staking {
+    grid-row: 3/5;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    .seperator {
+      margin: 0 20px;
+      @include seperator($secondary-color, 4px);
+    }
+    .stake_stats_btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .stake_stats {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+    }
+    .top_stakers {
+      flex: 1;
+      .stakers_list {
+        margin-top: 5px;
+        .staker {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .portal_user_achievement {
+    padding: 15px;
+    .caption {
+      font-size: 0.8em;
+      font-weight: 300;
+    }
+    .achivement_info_btn {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      #achivement_data {
+        font-size: 2em;
+        font-weight: 500;
+        color: $trigger-yellow;
+        span {
+          font-size: 0.6em;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}
+//portal nft section
+.nft_section {
+  position: relative;
+  margin-top: 25px;
+
+  .mint_section {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    background-color: $background-color;
+    position: sticky;
+    top: 70px;
+    button {
+      margin: 15px 0;
+    }
+    z-index: 10;
+  }
+  .nft_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+  }
+}
+//live stream section
+.livestream_section {
+  margin: 20px 0;
+}
+//utils
+//stats
+.stat {
+  margin-right: 10px;
+  .data {
+    font-weight: 700;
+    font-size: 1.5em;
+  }
+  .title {
+    font-weight: 500;
+    font-size: 0.9em;
+    color: $light-text;
+  }
+}

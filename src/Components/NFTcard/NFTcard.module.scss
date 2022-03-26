@@ -1,0 +1,100 @@
+@import "styles/_variables.scss";
+@import "styles/_mixins.scss";
+.card {
+  padding: 20px;
+  //   min-height: 500px;
+  height: 510px;
+  width: 350px;
+  background-color: $secondary-color;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  .nft_owners {
+    display: flex;
+    justify-content: space-between;
+    .seperator {
+      @include seperator(#ffff, 1px);
+    }
+  }
+  .card_main {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    .nft_thumbnail {
+      border-radius: 18px;
+      height: 100%;
+      overflow: hidden;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: fill;
+      }
+    }
+    .card_buttons_wrapper {
+      bottom: 15px;
+      position: absolute;
+      height: 110px;
+      width: 100%;
+      .card_buttons {
+        padding: 10px;
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(48px);
+
+        .nft_info {
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+          .data_wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            .data {
+              .title {
+                font-size: 0.7em;
+                color: $light-text;
+              }
+              .body {
+                font-size: 1em;
+              }
+            }
+          }
+          .button_wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+          }
+        }
+      }
+    }
+  }
+}
+
+.address_wrapper {
+  display: flex;
+  .profile {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .address_info {
+    margin-left: 5px;
+    align-self: flex-end;
+    #heading {
+      font-size: 0.6em;
+      font-weight: 300;
+      color: $light-text;
+    }
+  }
+}

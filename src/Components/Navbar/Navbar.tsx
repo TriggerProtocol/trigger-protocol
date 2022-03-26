@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { WalletButton } from "../WalletButton";
 
 export const Navbar = () => {
-  const [landingPage, setLandingPage] = useState(true);
+  const [landingPage, setLandingPage] = useState(false);
 
   const [hiw, checkHiw] = useState(false);
   const [roadmap, checkRoadmap] = useState(false);
