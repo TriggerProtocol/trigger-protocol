@@ -114,7 +114,7 @@ contract TriggerProtocol {
     address private owner;
 
     uint256 LOCKIN_PEROID = 1 seconds; //change to 30 days
-    uint256 REWARD_RATE = 1; //change to 30 days
+    uint256 REWARD_RATE = 1; //should be 0.01
 
     struct Portal {
         string dbThreadID;
