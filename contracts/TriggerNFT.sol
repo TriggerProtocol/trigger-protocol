@@ -5,27 +5,6 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-interface IERC20 {
-    function balanceOf(address account) external view returns (uint256);
-
-    function transfer(address to, uint256 amount) external returns (bool);
-
-    function allowance(address owner, address spender)
-        external
-        view
-        returns (uint256);
-
-    function approve(address spender, uint256 amount) external returns (bool);
-
-    function transferFrom(
-        address from,
-        address to,
-        uint256 amount
-    ) external returns (bool);
-
-    event Transfer(address indexed from, address indexed to, uint256 value);
-}
-
 contract TriggerNFT is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
