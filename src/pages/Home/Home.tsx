@@ -9,7 +9,7 @@ import polygon from "../../assets/logos/png/polygon.png";
 import ipfs from "../../assets/logos/png/ipfs.png";
 import the_graph from "../../assets/logos/png/the_graph.png";
 import livepeer from "../../assets/logos/png/livepeer.png";
-import { ScrollDown } from "../ScrollDown";
+import { ScrollDown } from "../../Components/ScrollDown";
 
 export const Home = () => {
   return (
@@ -167,22 +167,34 @@ const Roadmap = () => {
     <div className={styles.roadmap_wrapper}>
       <div className={styles.roadmap_circle}>
         <div className={styles.roadmap_card}>
-          <strong>3rd Jan 2021</strong>
+          <div className={styles.glow1}></div>
+          <div className={styles.glow2}></div>
+          <h3>3rd Jan 2021</h3>
           <p>Created plan and started descussing on features and ideas</p>
+        </div>
+      </div>
+      <span id={styles.glowed}></span>
+      <div className={styles.roadmap_circle}>
+        <div className={styles.roadmap_card} id={styles.alternate}>
+          <div className={styles.glow1}></div>
+          <div className={styles.glow2}></div>
+          <h3>5th Jan 2021</h3>
+          <p>
+            Designed the logo, created the wireframe and started with UI/UX
+            designing
+          </p>
         </div>
       </div>
       <span></span>
       <div className={styles.roadmap_circle}>
-        <div className={styles.roadmap_card} id={styles.alternate}>
-          <strong>3rd Jan 2021</strong>
-          <p>Created plan and started descussing on features and ideas</p>
-        </div>
-      </div>
-      <span></span>
-      <div className={styles.roadmap_circle} id={styles.end}>
-        <div className={styles.roadmap_card}>
-          <strong>3rd Jan 2021</strong>
-          <p>Created plan and started descussing on features and ideas</p>
+        <div className={styles.roadmap_card} id={styles.end}>
+          {/* <div className={styles.glow1}></div>
+          <div className={styles.glow2}></div> */}
+          <h3>17th Jan 2021</h3>
+          <p>
+            Initialized the project and started building the smart contracts and
+            frontend
+          </p>
         </div>
       </div>
     </div>
