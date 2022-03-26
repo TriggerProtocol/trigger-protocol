@@ -7,10 +7,18 @@ import "../../styles/globals.css";
 
 // Assets
 import tgr_logo_full from "../../assets/logos/png/tgr_logo_full.png";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [landingPage, setLandingPage] = useState(true);
-  const [defaultCheck, setDefaultCheck] = useState(true);
+
+  const [hiw, checkHiw] = useState(false);
+  const [roadmap, checkRoadmap] = useState(false);
+  const [poweredBy, checkPoweredBy] = useState(false);
+
+  const [portal, checkPortal] = useState(false);
+  const [stats, checkStats] = useState(false);
+  const [profile, checkPorfile] = useState(false);
 
   return (
     <div className={styles.navbar_outer}>
@@ -25,7 +33,11 @@ export const Navbar = () => {
             <li>
               <div className={styles.buy_tgr}>
                 <p>Buy $TGR</p>
-                <Icon icon="gridicons:dropdown" fontSize={"23px"} id={styles.dropdown_icon} />
+                <Icon
+                  icon="gridicons:dropdown"
+                  fontSize={"23px"}
+                  id={styles.dropdown_icon}
+                />
                 <span className={styles.buy_tgr_dropdown}>
                   <ul>
                     <a href="#" target={"_blank"}>
@@ -47,62 +59,114 @@ export const Navbar = () => {
             <li>
               <a>Docs</a>
             </li>
-            <li>
-              <a>How it works?</a>
-              <input
-                type="radio"
-                name="highlighter"
-                checked={defaultCheck}
-                onClick={() => setDefaultCheck(true)}
-              ></input>
-              <span className={styles.highlighter}></span>
-            </li>
-            <li>
-              <a>Roadmap</a>
-              <input
-                type="radio"
-                name="highlighter"
-                onClick={() => setDefaultCheck(false)}
-              ></input>
-              <span className={styles.highlighter}></span>
-            </li>
-            <li>
-              <a>Powered By</a>
-              <input
-                type="radio"
-                name="highlighter"
-                onClick={() => setDefaultCheck(false)}
-              ></input>
-              <span className={styles.highlighter}></span>
-            </li>
-            <li>
-              <a>FAQs</a>
-              <input
-                type="radio"
-                name="highlighter"
-                onClick={() => setDefaultCheck(false)}
-              ></input>
-              <span className={styles.highlighter}></span>
-            </li>
+            <a
+              href="#hiw"
+              onClick={() => {
+                checkHiw(true);
+                checkRoadmap(false);
+                checkPoweredBy(false);
+              }}
+            >
+              <li>
+                How it works?
+                <input type="radio" name="highlighter" checked={hiw}></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a>
+            <a
+              href="#roadmap"
+              onClick={() => {
+                checkRoadmap(true);
+                checkHiw(false);
+                checkPoweredBy(false);
+              }}
+            >
+              <li>
+                Roadmap
+                <input
+                  type="radio"
+                  name="highlighter"
+                  checked={roadmap}
+                ></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a>
+            <a
+              href="#powered_by"
+              onClick={() => {
+                checkHiw(false);
+                checkPoweredBy(true);
+                checkRoadmap(false);
+              }}
+            >
+              <li>
+                Powered By
+                <input
+                  type="radio"
+                  name="highlighter"
+                  checked={poweredBy}
+                ></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a>
+            {/* <a href="#faq">
+              <li>
+                FAQs
+                <input
+                  type="radio"
+                  name="highlighter"
+                  onClick={() => setDefaultCheck(false)}
+                ></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a> */}
           </ul>
         ) : (
           // Links, navigation (App)
           <ul className={styles.app_links}>
-            <li>
-              <a>Portal</a>
-              <input type="radio" name="highlighter"></input>
-              <span className={styles.highlighter}></span>
-            </li>
-            <li>
-              <a>Stats</a>
-              <input type="radio" name="highlighter"></input>
-              <span className={styles.highlighter}></span>
-            </li>
-            <li>
-              <a>Profile</a>
-              <input type="radio" name="highlighter"></input>
-              <span className={styles.highlighter}></span>
-            </li>
+            <a
+              onClick={() => {
+                checkPortal(true);
+                checkPorfile(false);
+                checkStats(false);
+              }}
+            >
+              <li>
+                Portal
+                <input type="radio" name="highlighter" checked={portal}></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a>
+            <a
+              onClick={() => {
+                checkPortal(false);
+                checkPorfile(false);
+                checkStats(true);
+              }}
+            >
+              <li>
+                Stats
+                <input type="radio" name="highlighter" checked={stats}></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a>
+            <a
+              onClick={() => {
+                checkPortal(false);
+                checkPorfile(true);
+                checkStats(false);
+              }}
+            >
+              <li>
+                Profile
+                <input
+                  type="radio"
+                  name="highlighter"
+                  checked={profile}
+                ></input>
+                <span className={styles.highlighter}></span>
+              </li>
+            </a>
           </ul>
         )}
         {/* Launch App button */}

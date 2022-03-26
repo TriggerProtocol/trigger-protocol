@@ -1,0 +1,56 @@
+@import "../../styles/variables";
+
+.footer_outer {
+  width: 100%;
+  height: 300px;
+  background-color: $secondary_color;
+  padding: 20px;
+}
+
+.footer_links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .links {
+    text-align: end;
+    font-size: 1.2rem;
+    margin-top: 20px;
+
+    ul {
+      list-style: none;
+
+      a {
+        color: $light-text;
+        font-size: 1.1rem;
+      }
+
+      li {
+        margin-top: 5px;
+      }
+    }
+  }
+
+  img {
+    max-width: 200px;
+    width: 105vw;
+  }
+}
+
+.footer_social {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+
+  .logos {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    img {
+      margin-left: 10px;
+      max-width: 25px;
+      cursor: pointer;
+    }
+  }
+}
