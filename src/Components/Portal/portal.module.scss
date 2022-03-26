@@ -1,0 +1,39 @@
+.portal {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .glow1,
+  .glow2 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .glow1 {
+    background: rgba(255, 168, 53, 0.49);
+    width: 100px;
+    height: 100px;
+    mix-blend-mode: soft-light;
+    filter: blur(58px);
+  }
+
+  .glow2 {
+    background: rgba(255, 168, 53, 0.41);
+    width: 200px;
+    height: 200px;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    filter: blur(60px);
+  }
+}
