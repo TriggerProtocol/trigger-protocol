@@ -1,0 +1,76 @@
+@import "../../styles/variables";
+
+.wallet_button {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 0px;
+  background-color: $trigger-yellow;
+  font-size: 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: 1s;
+
+  .avatar {
+    max-width: 30px;
+  }
+}
+
+.wallet_state {
+  display: flex;
+  height: fit-content;
+  padding: 0px 20px;
+}
+
+.wallet_details_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 10px;
+
+  .wallet_details {
+    h4 {
+      font-size: 0.8rem;
+    }
+    p {
+      font-size: 0.6rem;
+    }
+
+    .wallet_name {
+      display: flex;
+      align-items: center;
+
+      .connected_or_not {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $wallet-connected;
+        margin-left: 5px;
+        border: 2px solid $background-color;
+      }
+    }
+  }
+
+  #dropdown_icon {
+    font-size: 2rem;
+    margin-left: 10px;
+  }
+}
+
+.dropdown {
+  font-size: 1rem;
+  text-align: center;
+  right: 5px;
+  width: 100%;
+  background-color: $trigger-yellow;
+  p {
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 600;
+  }
+
+  p:hover {
+    background-color: $trigger-yellow-hower;
+  }
+}
