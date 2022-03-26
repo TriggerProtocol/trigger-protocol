@@ -130,7 +130,7 @@ section {
       width: 100px;
       height: 100px;
       mix-blend-mode: soft-light;
-      filter: blur(158px);
+      filter: blur(58px);
     }
 
     .glow2 {
@@ -139,7 +139,7 @@ section {
       height: 200px;
       mix-blend-mode: normal;
       opacity: 0.8;
-      filter: blur(332px);
+      filter: blur(60px);
     }
 
     #nft_card,
@@ -244,10 +244,51 @@ section {
     max-height: 300px;
     padding: 30px 20px;
     margin: auto;
+    display: none;
 
     img {
       height: 100%;
       width: 100%;
+    }
+  }
+
+  .roadmap_wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-top: 200px;
+    margin-bottom: 100px;
+
+    span {
+      height: 2px;
+      width: 100%;
+      background-color: white;
+    }
+    .roadmap_circle {
+      min-width: 25px;
+      min-height: 25px;
+      border-radius: 50%;
+      background-color: red;
+      position: relative;
+
+      .roadmap_card {
+        position: absolute;
+        width: 250px;
+        height: fit-content;
+        background-color: $secondary-color;
+        padding: 20px;
+        left: 100%;
+        bottom: 100%;
+      }
+
+      #alternate {
+        right: 100%;
+        top: 100%;
+      }
+
+      #end {
+
+      }
     }
   }
 }
@@ -283,7 +324,22 @@ section {
   display: none;
 }
 
+@media only screen and (max-width: 889px) {
+  .powered_by {
+    .powered_by_logos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
 @media only screen and (max-width: 900px) {
+  .intro {
+    .intro_texts {
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+  }
   .powered_by {
     .powered_by_logos {
       img {
