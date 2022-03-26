@@ -10,7 +10,7 @@ import tgr_logo_full from "../../assets/logos/png/tgr_logo_full.png";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
-  const [landingPage, setLandingPage] = useState(true);
+  const [landingPage, setLandingPage] = useState(false);
 
   const [hiw, checkHiw] = useState(false);
   const [roadmap, checkRoadmap] = useState(false);
@@ -171,7 +171,11 @@ export const Navbar = () => {
         )}
         {/* Launch App button */}
         <div className={styles.app_button}>
-          <button>Launch App</button>
+          {landingPage ? (
+            <button>Launch App</button>
+          ) : (
+            <button>Connect Wallet</button>
+          )}
         </div>
       </div>
     </div>
