@@ -15,6 +15,7 @@ import ScrollToTop from "utils/ScrollToTop";
 //styles
 import styles from "./Portalpage.module.scss";
 import { PopupModal } from "Components/PopupModal";
+import { getNftStorageClient } from "configs/nft.storage.config";
 
 export const PortalPage = () => {
   return (
@@ -169,11 +170,14 @@ const LiveStreamSection = () => {
 };
 const NftSection = () => {
   const [nftFormToggle, setNftFormToggle] = useState(false);
+
   return (
     <div className={styles.nft_section}>
       <SectionTitle sectionName="All NFTs" />
       <div className={styles.mint_section}>
-        <button className="btn-md">Mint</button>
+        <button className="btn-md" onClick={() => setNftFormToggle(true)}>
+          Mint
+        </button>
       </div>
       <div className={styles.nft_list}>
         {[1, 2, 3, 4, 5, 6].map((index) => {
@@ -198,7 +202,23 @@ const NftSection = () => {
 };
 
 const MintForm = () => {
-  function handleMint() {}
+  // const client = getNftStorageClient();
+  // async function storeNft() {
+  //   const imageFile = new File([someBinaryImageData], "nft.png", {
+  //     type: "image/png",
+  //   });
+  //   const metadata = await client.store({
+  //     name: "My sweet NFT",
+  //     description: "Just try to funge it. You can't do it.",
+  //     image: imageFile,
+  //   });
+  //   return metadata;
+  // }
+  // function handleMint() {
+  //   storeNft()
+  //     .then(() => {})
+  //     .catch(() => {});
+  // }
   return (
     <div className="">
       <button>Mint</button>
