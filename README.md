@@ -35,7 +35,7 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 - Artists and NFT holders can participate in NFT liquidity pools which have their own awesome benefits! <br>
 - And at last of course buying and selling of NFTs which can hugely benefit NFT holders and Portal owners as well! <br>
 
-## How Trigger Actually Works?
+## How Trigger Actually Works? 🚀
 
 - Users will be able to log into our platform using their preferred way of authentication such as Steam or Epic Games etc. Once the user has logged in we will be able to get all the data of the games they own. <br>
 - Owning games on any of these platforms allows exposure to whole new possibilities to users on our platform. <br>
