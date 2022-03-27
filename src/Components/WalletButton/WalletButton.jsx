@@ -52,7 +52,7 @@ export const WalletButton = () => {
       >
         <div
           className={styles.wallet_state}
-          // style={showDropdown ? { paddingTop: "100px" } : { paddingTop: "0px" }}
+          style={showDropdown ? { paddingTop: "100px" } : { paddingTop: "0px" }}
         >
           {data.connected ? (
             <>
