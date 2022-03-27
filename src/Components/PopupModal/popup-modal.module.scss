@@ -7,14 +7,14 @@
   height: calc(100vh - 60px);
   z-index: 99;
   button {
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-    height: fit-content;
-    width: fit-content;
-    transition: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+    height: fit-content !important;
+    width: fit-content !important;
+    transition: none !important;
     &:hover {
-      background-color: transparent;
+      background-color: transparent !important;
     }
   }
 

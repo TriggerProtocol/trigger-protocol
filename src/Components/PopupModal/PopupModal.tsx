@@ -1,24 +1,30 @@
-import React, { Children, ReactChild, useEffect, useState } from "react";
+import React, {
+  Children,
+  ReactChild,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Icon } from "@iconify/react";
 //styles
 import styles from "./popup-modal.module.scss";
-interface IPopupModalProps {
-  children: JSX.Element;
-  modalTitle: String;
-  width: String;
-  height: String;
-  toggleModal: Boolean;
-  setToggleModal: (togle: Boolean) => {};
-}
-export const PopupModal = ({
+type IPopupModalProps = {
+  modalTitle: string;
+  width: string;
+  height: string;
+  toggleModal: boolean;
+  setToggleModal: (state: boolean) => void;
+};
+export const PopupModal: React.FC<IPopupModalProps> = ({
   children,
   modalTitle,
   width,
   height,
   toggleModal,
   setToggleModal,
-}: IPopupModalProps) => {
+}) => {
   //   const [toggle, setToggle] = useState(false);
+  // const popup_cont_ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (toggleModal) {
       window.document.getElementsByTagName("body")[0].style.overflowY =
@@ -30,6 +36,7 @@ export const PopupModal = ({
   }, [toggleModal]);
   return (
     <div
+      // ref={popup_cont_ref}
       className={styles.container}
       style={toggleModal ? { visibility: "visible" } : { visibility: "hidden" }}
     >
