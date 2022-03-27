@@ -24,10 +24,15 @@ module.exports = {
     artifacts: "src"
   },
   networks: {
-    hardhat: {},
-    matic: {
-      url: "https://rpc-mumbai.maticvigil.com",
-      accounts: [privateKey],
-    },
+    // matic: {
+    //   url: "https://rpc-mumbai.maticvigil.com",
+    //   accounts: [process.env.PRIVATE_KEY],
+    // },
+  },
+  paths: {
+    // sources: "./contracts",
+    // tests: "./test",
+    // cache: "./cache",
+    artifacts: "./src/contracts/artifacts",
   },
 };

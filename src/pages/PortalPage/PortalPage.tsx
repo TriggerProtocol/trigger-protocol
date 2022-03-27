@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 //hooks
 import {
@@ -11,12 +11,15 @@ import { NFTcard } from "Components/NFTcard";
 import { AddressInfo } from "Components/AddressInfo";
 import { SectionTitle } from "pages/Home";
 import { LiveStreamCard } from "Components/LiveStreamCard";
+import ScrollToTop from "utils/ScrollToTop";
 //styles
 import styles from "./Portalpage.module.scss";
+import { PopupModal } from "Components/PopupModal";
 
 export const PortalPage = () => {
   return (
     <div className={styles.container}>
+      <ScrollToTop />
       <PortalMainSection />
       <LiveStreamSection />
       <NftSection />
@@ -165,6 +168,7 @@ const LiveStreamSection = () => {
   );
 };
 const NftSection = () => {
+  const [nftFormToggle, setNftFormToggle] = useState(false);
   return (
     <div className={styles.nft_section}>
       <SectionTitle sectionName="All NFTs" />
@@ -176,6 +180,28 @@ const NftSection = () => {
           return <NFTcard key={index} />;
         })}
       </div>
+      <PopupModal
+        modalTitle="Mint NFT"
+        height="300px"
+        width="400px"
+        toggleModal={nftFormToggle}
+        //@ts-ignore
+        setToggleModal={(state) => {
+          //@ts-ignore
+          setNftFormToggle(state);
+        }}
+      >
+        <MintForm />
+      </PopupModal>
+    </div>
+  );
+};
+
+const MintForm = () => {
+  function handleMint() {}
+  return (
+    <div className="">
+      <button>Mint</button>
     </div>
   );
 };
