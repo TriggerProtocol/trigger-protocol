@@ -91,7 +91,8 @@ contract TriggerProtocol {
         string dbThreadID,
         uint256 appID,
         uint256 createdAt,
-        address createdBy
+        address createdBy,
+        uint256 portalId
     );
 
     event PortalJoined(uint256 portalId, address joiner);
@@ -189,7 +190,8 @@ contract TriggerProtocol {
             _dbThreadID,
             _appID,
             portal.createdAt,
-            portal.createdBy
+            portal.createdBy,
+            newportalId
         );
     }
 
@@ -321,7 +323,9 @@ contract TriggerProtocol {
         emit Staked(_portalId, msg.sender, 0, 0);
     }
 
-    function rewardStakers(uint256 _portalId, uint256 _totalRewardAmount) internal {
+    function rewardStakers(uint256 _portalId, uint256 _totalRewardAmount)
+        internal
+    {
         //split rewards and store in mapping with portal id
     }
 
