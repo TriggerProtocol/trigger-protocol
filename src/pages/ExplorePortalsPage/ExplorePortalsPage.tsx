@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 
 import { Portal } from "Components/Portal";
 import { PortalCard } from "Components/PortalCard";
-
+import ScrollToTop from "utils/ScrollToTop";
 import styles from "./explore-portals.module.scss";
 export const ExplorePortalsPage = () => {
   return (
     <div className={styles.container}>
+      <ScrollToTop />
+
       <TrendingPortal />
       <PortalsList />
     </div>
