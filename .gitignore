@@ -129,6 +129,6 @@ yarn-error.log*
 
 #hardhat
 /cache
-/artifacts
+artifacts
 /src/contracts
 .secret

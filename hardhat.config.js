@@ -20,9 +20,6 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.4",
-  paths: {
-    artifacts: "src"
-  },
   networks: {
     // matic: {
     //   url: "https://rpc-mumbai.maticvigil.com",
@@ -33,6 +30,6 @@ module.exports = {
     // sources: "./contracts",
     // tests: "./test",
     // cache: "./cache",
-    artifacts: "./src/contracts/artifacts",
+    artifacts: "./src/artifacts",
   },
 };

@@ -1,5 +1,5 @@
 import { useProvider, useContract, useSigner } from "wagmi";
-import TriggerContract from "contracts/TriggerProtocol.sol/TriggerProtocol.json";
+import TriggerContract from "artifacts/contracts/TriggerProtocol.sol/TriggerProtocol.json";
 import { ethers } from "ethers";
 export interface IPortal {
   dbThreadID: String;
