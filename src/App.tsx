@@ -9,8 +9,10 @@ import { PortalCard } from "./Components/PortalCard";
 import { providers } from "ethers";
 import { WagmiProvider } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
-const connector = new InjectedConnector();
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const connector = new InjectedConnector();
 function App() {
   return (
     <WagmiProvider autoConnect={true} connectors={[connector]}>
@@ -23,6 +25,7 @@ function App() {
             <Route path="/portal/:portalId" element={<PortalPage />} />
             <Route path="/explore-portals/" element={<ExplorePortalsPage />} />
           </Routes>
+          <ToastContainer position="bottom-right" theme="dark" />
         </main>
         {/* <Footer /> */}
       </Router>

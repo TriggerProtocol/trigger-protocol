@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useConnect, useAccount } from "wagmi";
 import { PopupModal } from "Components/PopupModal";
+import { toast } from "react-toastify";
 
 // styles
 import styles from "./WalletButton.module.scss";
@@ -21,6 +22,12 @@ export const WalletButton = () => {
   useEffect(() => {
     data.connected && setWalletConnectToggle(false);
   }, [data.connected]);
+  useEffect(() => {
+    error &&
+      toast.error(error.message, {
+        position: "bottom-right",
+      });
+  }, [error]);
   useEffect(() => {
     console.log(data.connectors);
     const handleClickOutisde = (event) => {
