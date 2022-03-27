@@ -4,7 +4,7 @@
 
 Trigger is a platform to onboard gamers and digital artists into the space of blockchain and web3 by creating their favorite game portals which allow buying and selling NFTs of your favorite games along with many other Defi features.
 
-![UiDesign](./Images/UiDesign.jpg)
+![UiDesign](./Images/UiDesign.jpeg)
 
 ## Contents
 
