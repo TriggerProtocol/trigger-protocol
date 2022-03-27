@@ -10,6 +10,7 @@ import styles from "./WalletButton.module.scss";
 // assets
 import avatar from "../../assets/images/avatar.png";
 import metaMask from "assets/images/metamask.svg";
+import { stripAddr } from "utils";
 export const WalletButton = () => {
   const wallet_ref = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -61,7 +62,7 @@ export const WalletButton = () => {
               </div>
               <div className={styles.wallet_details_wrapper}>
                 <div className={styles.wallet_details}>
-                  <h4>{accountData.address}</h4>
+                  <h4>{stripAddr(accountData.address)}</h4>
                   <div className={styles.wallet_name}>
                     <p>{accountData.connector.name} Wallet</p>
                     <div className={styles.connected_or_not}></div>

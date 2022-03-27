@@ -28,7 +28,7 @@ function App() {
           </Routes>
           <ToastContainer position="bottom-right" theme="dark" />
         </main>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </WagmiProvider>
   );
