@@ -11,6 +11,7 @@
   position: relative;
   transition: 1s;
 
+  z-index: 1000;
   .avatar {
     max-width: 30px;
   }
@@ -72,5 +73,16 @@
 
   p:hover {
     background-color: $trigger-yellow-hower;
+  }
+}
+
+.connector_button {
+  padding: 20px;
+  border-radius: 10px;
+  width: fit-content;
+  border: 2px solid $trigger-yellow;
+  cursor: pointer;
+  &:disabled {
+    cursor: default;
   }
 }
