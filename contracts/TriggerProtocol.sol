@@ -164,6 +164,14 @@ contract TriggerProtocol {
         _;
     }
 
+    /* ========== Internal Functions ========== */
+    function checkPortalExists(uint256 _portalId) internal view returns (bool) {
+        if (portals[_portalId].appID != 0) {
+            return true;
+        }
+        return false;
+    }
+
     /* ========== Public Functions ========== */
     function setFactoryAddresses(
         address _triggerTokenAddress,
@@ -196,6 +204,8 @@ contract TriggerProtocol {
     }
 
     function joinPortal(uint256 _portalId) public {
+        bool exists = checkPortalExists(_portalId);
+        require(exists, "Portal doesnt exist");
         portalMembers[_portalId][msg.sender] = true;
 
         emit PortalJoined(_portalId, msg.sender);
