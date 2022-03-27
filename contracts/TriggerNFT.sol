@@ -29,7 +29,7 @@ contract TriggerNFT is ERC721URIStorage {
         _;
     }
 
-    function mintToken(string memory tokenURI, uint256 _portalId)
+    function mintNFT(string memory tokenURI, uint256 _portalId)
         public
         returns (uint256)
     {

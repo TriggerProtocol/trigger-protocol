@@ -49,7 +49,7 @@ interface IERC721 {
 
     function ownerOf(uint256 tokenId) external view returns (address owner);
 
-    function mintToken(string memory tokenURI, uint256 portalId)
+    function mintNFT(string memory tokenURI, uint256 portalId)
         external
         returns (uint256 tokenId);
 
@@ -227,11 +227,11 @@ contract TriggerProtocol {
         emit PortalXPClaimed(_portalId, msg.sender, _amount);
     }
 
-    function mintToken(uint256 _portalId, string memory _tokenURI)
+    function mintNFT(uint256 _portalId, string memory _tokenURI)
         public
         onlyJoined(_portalId)
     {
-        uint256 tokenId = triggerNFTtokenFactory.mintToken(
+        uint256 tokenId = triggerNFTtokenFactory.mintNFT(
             _tokenURI,
             _portalId
         );

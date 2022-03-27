@@ -1,11 +1,15 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+//hooks
+import {
+  useTriggerProtocolContract,
+  IPortal,
+} from "hooks/useTriggerProtocolContract";
 
 //components
 import { NFTcard } from "Components/NFTcard";
 import { AddressInfo } from "Components/AddressInfo";
 import { SectionTitle } from "pages/Home";
-
 import { LiveStreamCard } from "Components/LiveStreamCard";
 //styles
 import styles from "./Portalpage.module.scss";
@@ -20,6 +24,20 @@ export const PortalPage = () => {
   );
 };
 const PortalMainSection = () => {
+  const { contract, createPortal } = useTriggerProtocolContract();
+  const data: IPortal = {
+    dbThreadID: "3232",
+    appID: 3232,
+  };
+  function handleCreatePortal() {
+    createPortal(data)
+      .then((txn) => {
+        console.log(txn);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <div className={styles.main_section}>
       <div className={`${styles.hot_nft} solid_border`}>
@@ -61,7 +79,9 @@ const PortalMainSection = () => {
               <p className={styles.title}>Total Gamers in portal</p>
             </div>
           </div>
-          <button className="btn-md">Join Portal</button>
+          <button className="btn-md" onClick={() => handleCreatePortal()}>
+            Join Portal
+          </button>
         </div>
       </div>
       <div className={`${styles.portal_staking} solid_border`}>
