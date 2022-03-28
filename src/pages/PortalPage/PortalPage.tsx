@@ -169,7 +169,7 @@ const LiveStreamSection = () => {
   );
 };
 const NftSection = () => {
-  const [nftFormToggle, setNftFormToggle] = useState(false);
+  const [nftFormToggle, setNftFormToggle] = useState<boolean>(false);
 
   return (
     <div className={styles.nft_section}>
@@ -189,9 +189,7 @@ const NftSection = () => {
         height="300px"
         width="400px"
         toggleModal={nftFormToggle}
-        //@ts-ignore
         setToggleModal={(state) => {
-          //@ts-ignore
           setNftFormToggle(state);
         }}
       >

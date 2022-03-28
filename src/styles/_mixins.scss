@@ -2,3 +2,7 @@
   width: $width;
   background-color: $color;
 }
+@mixin border($color, $width, $type) {
+  border-radius: 5px;
+  border: $width $type $color;
+}
