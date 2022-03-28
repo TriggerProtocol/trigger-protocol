@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 //hooks
 import {
@@ -16,8 +16,39 @@ import ScrollToTop from "utils/ScrollToTop";
 import styles from "./Portalpage.module.scss";
 import { PopupModal } from "Components/PopupModal";
 import { getNftStorageClient } from "configs/nft.storage.config";
+//utils
+import {
+  createPortalInstance,
+  getPortalInstance,
+} from "configs/textile.io.configs";
 
+import {
+  createStream,
+  getStreamData,
+  toggleStreamRecord,
+  deleteStream,
+} from "configs/livepeer.config";
 export const PortalPage = () => {
+  useEffect(() => {
+    getPortalInstance("dsewew").then((data) => {
+      console.log(data);
+    });
+    // getStreamData().then((data) => {
+    //   console.log(data);
+    // });
+    deleteStream().then((data) => {
+      console.log(data);
+    });
+    // toggleStreamRecord().then((data) => {
+    //   console.log(data);
+    // });
+    // createStream().then((data) => {
+    //   console.log(data);
+    // });
+    // createPortalsInstance().then(() => {
+    //   console.log("Portal instance created");
+    // });
+  });
   return (
     <div className={styles.container}>
       <ScrollToTop />
