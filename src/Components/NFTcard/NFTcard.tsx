@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./NFTcard.module.scss";
 import ProfileImg from "assets/images/ens-profile.png";
 import NftThumbnail from "assets/images/nft-thumbnail.png";
 export const NFTcard = () => {
+  const [flipCard, setFlipCard] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFlipCard(false);
+    }, 5000);
+  });
+
   return (
-    <div className={styles.card}>
+    <div
+      className={
+        flipCard ? `${styles.card} ${styles.flipCard}` : `${styles.card}`
+      }
+    >
       <div className={styles.nft_owners}>
         <NftAddresses head="Created By" />
         <div className={styles.seperator}></div>
@@ -29,7 +41,12 @@ export const NFTcard = () => {
               </div>
               <div className={styles.button_wrap}>
                 <button className="btn-sm">Buy Now</button>
-                <button className="btn-sm">More info</button>
+                <button
+                  className="btn-sm"
+                  // onClick={() => setFlipCard(!flipCard)}
+                >
+                  More info
+                </button>
               </div>
             </div>
           </div>

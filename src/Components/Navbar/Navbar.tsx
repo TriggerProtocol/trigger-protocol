@@ -152,7 +152,8 @@ export const Navbar = () => {
                 <span className={styles.highlighter}></span>
               </li>
             </a>
-            <a
+            <Link
+              to={"/profile"}
               onClick={() => {
                 checkPortal(false);
                 checkPorfile(true);
@@ -168,7 +169,7 @@ export const Navbar = () => {
                 ></input>
                 <span className={styles.highlighter}></span>
               </li>
-            </a>
+            </Link>
           </ul>
         )}
         {/* Launch App button */}

@@ -7,7 +7,7 @@ import styles from "./PortalCard.module.scss";
 import avatar from "../../assets/images/avatar.png";
 import portal_thumb from "../../assets/images/portal_thumb.png";
 
-export const PortalCard = () => {
+export const PortalCard = ({ createPortal }: { createPortal?: boolean }) => {
   return (
     <div className={styles.portal_card}>
       <img src={portal_thumb} alt="portal_thumbnail" id={styles.portal_thumb} />
@@ -15,28 +15,49 @@ export const PortalCard = () => {
         {/* Portal Details */}
         <div className={styles.portal_details}>
           <h3>Little Nightmares</h3>
-          <div className={styles.portal_volume}>
-            <p>Total Volume</p>
-            <h4>900 TGR = $9000</h4>
-          </div>
+          {!createPortal ? (
+            <div className={styles.portal_volume}>
+              <p>Total Volume</p>
+              <h4>900 TGR = $9000</h4>
+            </div>
+          ) : (
+            <div className={styles.portal_volume}>
+              <h4>Description</h4>
+              <p>
+                Little Nightmares is a puzzle-platform horror adventure game
+                developed by Tarsier Studios and published by Bandai Namco
+                Entertainment. Set in a mysterious world...
+              </p>
+            </div>
+          )}
         </div>
 
-        {/* Portal Members */}
-        <div className={styles.portal_members_wrapper}>
-          <div className={styles.portal_members}>
-            {[1, 2, 3].map(() => {
-              return (
-                <img src={avatar} alt="avatar" id={styles.member_avatar} />
-              );
-            })}
-          </div>
+        {!createPortal ? (
+          <div className={styles.portal_members_wrapper}>
+            <div className={styles.portal_members}>
+              {[1, 2, 3].map(() => {
+                return (
+                  <img src={avatar} alt="avatar" id={styles.member_avatar} />
+                );
+              })}
+            </div>
 
-          <p>50+</p>
+            <p>50+</p>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+
+      {createPortal ? (
+        <div className={`${styles.join_button} `}>
+          <button className="btn-sm">Create Portal</button>
         </div>
-      </div>
-      <div className={`${styles.join_button} `}>
-        <button className="btn-sm">Join Portal</button>
-      </div>
+      ) : (
+        <div className={`${styles.join_button} `}>
+          <button className="btn-sm">Join Portal</button>
+        </div>
+      )}
     </div>
   );
 };
