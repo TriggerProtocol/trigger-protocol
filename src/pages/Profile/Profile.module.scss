@@ -1,0 +1,47 @@
+@import "styles/variables";
+
+.profile {
+  .profile_navigator_wrapper {
+    width: 100%;
+    height: 47px;
+    position: fixed;
+    background-color: $secondary-color;
+    left: 0;
+    z-index: 10000;
+
+    ul {
+      list-style: none;
+      display: flex;
+
+      li {
+        padding: 13px 40px;
+        margin-left: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 5px 5px 0px 0px;
+        cursor: pointer;
+        transition: 500ms;
+        white-space: nowrap;
+      }
+
+      li:hover {
+        background-color: $background-color;
+      }
+
+      .link_active {
+        background-color: $background-color;
+      }
+
+      .link_inactive {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .profile_main {
+    padding-top: 57px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 400px);
+    grid-gap: 20px;
+  }
+}
