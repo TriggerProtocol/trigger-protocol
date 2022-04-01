@@ -33,7 +33,7 @@ function App() {
             <Route path="/explore-portals/" element={<ExplorePortalsPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route
-              path="/streamer-dashboard"
+              path="/streamer-dashboard/:id"
               element={<LiveStreamDashboard />}
             />{" "}
             <Route path="/stream" element={<LiveStream />} />

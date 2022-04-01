@@ -20,6 +20,20 @@ const portalSchema = {
     creator: { type: "string" },
   },
 };
+const liveStreamSchema = {
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "Live Stream",
+  type: "object",
+  properties: {
+    _id: { type: "string" },
+    portalId: { type: "string" },
+    appID: { type: "string" },
+    streamId: { type: "string" },
+    streamName: { type: "string" },
+    creatorAddress: { type: "string" },
+    createdAt: { type: "string" },
+  },
+};
 async function setupDB() {
   // Initialize the client
   const client = Client.withKeyInfo(keyInfo);
@@ -31,17 +45,18 @@ async function setupDB() {
   //     )
   //   );
   // Create a new DB
-  //   const threadID = (await client).newDB(undefined, "portalDb");
+  // const threadID = (await client).newDB(undefined, "portalDb");
 
-  //   (await client).newCollection(threadID, {
-  //     name: "portals",
-  //     schema: portalSchema,
-  //   });
-  //   console.log("collection Created");
+  // (await client).newCollection(threadID, {
+  //   name: "liveStreams",
+  //   schema: liveStreamSchema,
+  // });
+  // console.log("collection Created");
   //   return (await threadID).toString();
-  //   const found = (await client).listCollections(threadID);
-  //   await found;
-  //   console.log(found);
+  // const a = (await client).deleteCollection(threadID, "liveStreams");
+  const found = (await client).listCollections(threadID);
+  await found;
+  console.log(found);
   //   found.then((data) => console.log(data));
 }
 setupDB().then(() => {

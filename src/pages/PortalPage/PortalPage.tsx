@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState, useRef } from "react";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
+import { useAccount } from "wagmi";
 //hooks
 import {
   useTriggerProtocolContract,
@@ -19,6 +21,7 @@ import { getNftStorageClient } from "configs/nft.storage.config";
 //utils
 import {
   createPortalInstance,
+  createStreamInstance,
   getPortalInstance,
 } from "configs/textile.io.configs";
 
@@ -45,9 +48,9 @@ export const PortalPage = () => {
     // createStream().then((data) => {
     //   console.log(data);
     // });
-    // createPortalsInstance().then(() => {
-    //   console.log("Portal instance created");
-    // });
+    createPortalInstance().then(() => {
+      console.log("Portal instance created");
+    });
   });
   return (
     <div className={styles.container}>
@@ -172,6 +175,44 @@ const PortalMainSection = () => {
   );
 };
 const LiveStreamSection = () => {
+  const [popupToggle, setPopuptoggle] = useState(false);
+  const [creatingStream, setCreatingStream] = useState(false);
+  const [recordStream, setRecordStream] = useState(false);
+  const streamNameRef = useRef<HTMLInputElement>(null);
+  const [{ data: accountData }, disconnect] = useAccount({
+    fetchEns: true,
+  });
+
+  const navigate = useNavigate();
+  function handleCreateStream(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (Boolean(streamNameRef.current?.value)) {
+      setCreatingStream(true);
+
+      createStream(streamNameRef.current?.value, recordStream)
+        .then((data) => {
+          const { id } = data.data;
+          createStreamInstance(
+            "1",
+            "23232",
+            id,
+            streamNameRef.current?.value,
+            accountData?.address
+          )
+            .then((data) => {
+              console.log(data);
+              navigate(`/streamer-dashboard/${id}`);
+              setCreatingStream(false);
+            })
+            .catch((err) => {
+              console.log("error at storing stream data: ", err);
+            });
+        })
+        .catch((err) => {
+          console.log("error at stream creation: ", err);
+        });
+    }
+  }
   return (
     <div className={styles.livestream_section}>
       <SectionTitle sectionName="Live Streams" />
@@ -190,12 +231,48 @@ const LiveStreamSection = () => {
           <div className={styles.create_stream_wrapper}>
             <div className={styles.layer_blur}></div>
 
-            <div className={`${styles.create} solid_border`}>
+            <div
+              className={`${styles.create} solid_border`}
+              onClick={() => setPopuptoggle(true)}
+            >
               <p>Create Live Stream</p>
             </div>
           </div>
         </div>
       </div>
+      <PopupModal
+        modalTitle="Create Stream"
+        toggleModal={popupToggle}
+        setToggleModal={(state) => setPopuptoggle(state)}
+        height={"200px"}
+        width={"300px"}
+      >
+        {creatingStream ? (
+          <div className={styles.loading_stream}>
+            <h2>Creating stream...</h2>
+          </div>
+        ) : (
+          <form action="" className={`${styles.create_stream_form} form-ui`}>
+            <label htmlFor="">Stream Name</label>
+            <input type="text" ref={streamNameRef} />
+            <div className={styles.stream_form_flex}>
+              <label htmlFor="" className={styles.record_label}>
+                Record Stream
+              </label>
+              <label
+                htmlFor=""
+                className="switch-toggle"
+                onClick={() => setRecordStream(!recordStream)}
+              >
+                <input type="checkbox" />
+              </label>{" "}
+            </div>
+            <button className="btn-md" onClick={(e) => handleCreateStream(e)}>
+              Create Stream{" "}
+            </button>
+          </form>
+        )}
+      </PopupModal>
     </div>
   );
 };

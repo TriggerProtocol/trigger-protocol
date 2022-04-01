@@ -1,8 +1,11 @@
 import axios from "axios";
 const apiKey = "fc677a18-e1cc-4e4c-8573-c4a0b0535bef";
-export async function createStream() {
+export async function createStream(
+  streamName: string | undefined,
+  record: boolean = false
+) {
   const body = {
-    name: "test_stream",
+    name: streamName,
     profiles: [
       {
         name: "720p",
@@ -26,6 +29,7 @@ export async function createStream() {
         height: 360,
       },
     ],
+    record: record,
   };
   return await axios.post("https://livepeer.com/api/stream", body, {
     headers: {
@@ -33,20 +37,19 @@ export async function createStream() {
     },
   });
 }
-export async function toggleStreamRecord() {
-  return await axios.patch(
-    `https://livepeer.com/api/stream/dcaa26a3-5603-4b7e-9510-e3ede05ad365/record`,
-    { record: true },
-    {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-      },
-    }
-  );
+
+export async function getStreamData(id: string) {
+  return await axios.get(`https://livepeer.com/api/stream/${id}`, {
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+  });
 }
-export async function getStreamData() {
-  return await axios.get(
-    `https://livepeer.com/api/stream/dcaa26a3-5603-4b7e-9510-e3ede05ad365`,
+export async function toggleStreamRecord(id: string, record: boolean) {
+  console.log(id, record);
+  return await axios.patch(
+    `https://livepeer.com/api/stream/${id}/record`,
+    { record: record },
     {
       headers: {
         Authorization: `Bearer ${apiKey}`,
