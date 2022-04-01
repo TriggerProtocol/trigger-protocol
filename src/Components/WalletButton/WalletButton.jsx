@@ -58,11 +58,18 @@ export const WalletButton = () => {
           {data.connected ? (
             <>
               <div className={styles.avatar}>
-                <img src={avatar} alt="avatar" />
+                <img
+                  src={accountData.ens ? accountData.ens.avatar : avatar}
+                  alt="avatar"
+                />
               </div>
               <div className={styles.wallet_details_wrapper}>
                 <div className={styles.wallet_details}>
-                  <h4>{stripAddr(accountData.address)}</h4>
+                  <h4>
+                    {accountData.ens
+                      ? accountData.ens.name
+                      : stripAddr(accountData.address)}
+                  </h4>
                   <div className={styles.wallet_name}>
                     <p>{accountData.connector.name} Wallet</p>
                     <div className={styles.connected_or_not}></div>

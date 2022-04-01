@@ -44,3 +44,39 @@
   font-size: 1.6em;
   font-weight: 600;
 }
+
+.switch-toggle {
+  position: relative;
+  width: 35px;
+  height: 18px;
+  cursor: pointer;
+}
+.switch-toggle input[type="checkbox"] {
+  position: relative;
+  background: $secondary-color;
+  appearance: none;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.25);
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+.switch-toggle input:checked[type="checkbox"] {
+  background: $trigger-yellow;
+  box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.25);
+}
+.switch-toggle input[type="checkbox"]::before {
+  position: absolute;
+  content: "";
+  top: 3px;
+  left: 3px;
+  width: 13px;
+  height: 13px;
+  background: $trigger-yellow;
+  border-radius: 100px;
+}
+.switch-toggle input:checked[type="checkbox"]::before {
+  background: $secondary-color;
+  transform: translateX(15px);
+}

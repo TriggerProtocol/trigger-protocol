@@ -1,0 +1,13 @@
+.stream_data {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .styles_info {
+    display: flex;
+    flex-direction: column;
+    h3{
+      align-self:flex-end;
+    }
+    align-self: flex-end;
+  }
+}
