@@ -1,10 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StreamLayout } from "Components/StreamLayout";
-
+import { useParams } from "react-router-dom";
 import styles from "./live-stream-dashboard.module.scss";
+import { copyTextToClipboard } from "utils";
+import { getStreamData, toggleStreamRecord } from "configs/livepeer.config";
+type streamdataType = {
+  playbackId: string;
+  streamKey: string;
+  isActive: boolean;
+  record: boolean;
+  id: string;
+};
+
 export const LiveStreamDashboard = () => {
-  return (
-    <StreamLayout streamer={true}>
+  const { id } = useParams();
+  const [streamData, setStreamData] = useState<streamdataType>({
+    record: false,
+    isActive: false,
+    playbackId: "",
+    streamKey: "",
+    id: "",
+  });
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (id) {
+      getStreamData(id).then(({ data }) => {
+        setStreamData(data);
+        console.log(data);
+        setLoading(false);
+      });
+    }
+  }, []);
+  useEffect(() => {
+    let interval: any;
+    if (id && !loading && !streamData.isActive) {
+      interval = setInterval(() => {
+        getStreamData(id).then(({ data }) => {
+          if (data.isActive) {
+            setStreamData(data);
+          }
+        });
+      }, 10000);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  });
+  function handleRecordToggle() {
+    toggleStreamRecord(streamData.id, !streamData.isActive).then((data) => {
+      console.log(data);
+      setStreamData({ ...streamData, record: !streamData.isActive });
+    });
+  }
+  return loading ? (
+    <div className="">loading</div>
+  ) : (
+    <StreamLayout streamer={true} streamData={streamData}>
       <div className={styles.steam_connection_details}>
         <p className="heading2" id={styles.head}>
           Steam connection details
@@ -20,14 +71,21 @@ export const LiveStreamDashboard = () => {
           <div className={styles.item}>
             <div className={styles.url}>
               <p>Stream Key: </p>
-              <p>0e5b-9btr-gb4s-gooz</p>
+              <p>{streamData?.streamKey}</p>
             </div>
-            <button className="btn-sm">Copy</button>
+            <button
+              className="btn-sm"
+              onClick={(e) => (e.currentTarget.value = "test")}
+            >
+              Copy
+            </button>
           </div>
           <div className={styles.item}>
             <div className={styles.url}>
               <p>Playback URL: </p>
-              <p>https://cdn.livepeer.com/hls/0e5b9l73nusrz5nh/index.m3u8</p>
+              <p>
+                https://cdn.livepeer.com/hls/{streamData?.playbackId}/index.m3u8
+              </p>
             </div>
             <button className="btn-sm">Copy</button>
           </div>
@@ -40,9 +98,9 @@ export const LiveStreamDashboard = () => {
           <label
             htmlFor=""
             className="switch-toggle"
-            // onClick={() => setfundtoggle(!fundtoggle)}
+            onClick={() => handleRecordToggle()}
           >
-            <input type="checkbox" />
+            <input type="checkbox" checked={streamData.record === true} />
           </label>
         </div>{" "}
         <div className={styles.setting_item}>
@@ -50,6 +108,7 @@ export const LiveStreamDashboard = () => {
           <label
             htmlFor=""
             className="switch-toggle"
+
             // onClick={() => setfundtoggle(!fundtoggle)}
           >
             <input type="checkbox" />

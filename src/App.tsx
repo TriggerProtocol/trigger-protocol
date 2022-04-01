@@ -28,7 +28,7 @@ function App() {
             <Route path="/portal/:portalId" element={<PortalPage />} />
             <Route path="/explore-portals/" element={<ExplorePortalsPage />} />
             <Route
-              path="/streamer-dashboard"
+              path="/streamer-dashboard/:id"
               element={<LiveStreamDashboard />}
             />{" "}
             <Route path="/stream" element={<LiveStream />} />
