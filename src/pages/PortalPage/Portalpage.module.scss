@@ -163,6 +163,7 @@
       //     display: none;
       //   }
     }
+
     .create_stream {
       position: absolute;
       right: 0;
@@ -183,7 +184,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 100;
+          z-index: 10;
           p {
             text-align: center;
             font-size: 1.5em;
@@ -204,6 +205,30 @@
     }
   }
 }
+.loading_stream{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.create_stream_form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .stream_form_flex {
+    display: flex;
+    align-items: center;
+    .record_label {
+      margin-right: 10px;
+    }
+  }
+  button {
+    justify-self: flex-end;
+    align-self: center;
+  }
+}
+
 //utils
 //stats
 .stat {
