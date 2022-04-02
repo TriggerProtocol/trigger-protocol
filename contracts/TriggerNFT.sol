@@ -29,7 +29,7 @@ contract TriggerNFT is ERC721URIStorage {
         _;
     }
 
-    function mintNFT(string memory tokenURI, uint256 _portalId)
+    function mintNFT(string memory tokenURI, uint256 _portalId,uint256 _price)
         public
         returns (uint256)
     {
@@ -46,8 +46,8 @@ contract TriggerNFT is ERC721URIStorage {
             msg.sender,
             msg.sender,
             msg.sender,
-            false,
-            0
+            true,
+            _price
         );
         _portalNfts[newTokenId] = pNft;
         return newTokenId;
@@ -69,7 +69,7 @@ contract TriggerNFT is ERC721URIStorage {
         onlyOwner(_tokenId)
     {
         require(_price > 0, "Price must be at least 1 wei");
-        require(_portalNfts[_tokenId].forSale == true, "Nft not for sale");
+        require(_portalNfts[_tokenId].forSale, "Nft not for sale");
         _portalNfts[_tokenId].price = _price;
     }
 
