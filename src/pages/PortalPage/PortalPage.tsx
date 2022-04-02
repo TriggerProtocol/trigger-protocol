@@ -1,7 +1,7 @@
 import React, { MouseEvent, useEffect, useState, useRef } from "react";
 import { Icon } from "@iconify/react";
-import { useNavigate } from "react-router-dom";
-import { useAccount } from "wagmi";
+import { useNavigate, Link } from "react-router-dom";
+import { useAccount, useConnect } from "wagmi";
 //hooks
 import {
   useTriggerProtocolContract,
@@ -23,6 +23,8 @@ import {
   createPortalInstance,
   createStreamInstance,
   getPortalInstance,
+  getStreamInstance,
+  IStreamData,
 } from "configs/textile.io.configs";
 
 import {
@@ -48,9 +50,11 @@ export const PortalPage = () => {
     // createStream().then((data) => {
     //   console.log(data);
     // });
-    createPortalInstance().then(() => {
-      console.log("Portal instance created");
-    });
+    // createPortalInstance()
+    //   .then(() => {
+    //     console.log("Portal instance created");
+    //   })
+    //   .catch((err) => console.log("Error creating Instance :", err));
   });
   return (
     <div className={styles.container}>
@@ -103,7 +107,7 @@ const PortalMainSection = () => {
           </div>
           <div className={styles.portal_creator}>
             <p className="heading3">Created By</p>
-            <AddressInfo address="0xEhs67........Tk2zw" />
+            <AddressInfo address="0xE0E6Ab1F6e8714063F2A4A4341Fc6B0CbA3cD16c" />
           </div>
         </div>
         <div className={styles.stats_join}>
@@ -147,7 +151,7 @@ const PortalMainSection = () => {
                 return (
                   <div className={styles.staker}>
                     <AddressInfo
-                      address="0xEhs67........Tk2zw"
+                      address="0xE0E6Ab1F6e8714063F2A4A4341Fc6B0CbA3cD16c"
                       text="100 xTGR Staked"
                     />
                   </div>
@@ -178,25 +182,39 @@ const LiveStreamSection = () => {
   const [popupToggle, setPopuptoggle] = useState(false);
   const [creatingStream, setCreatingStream] = useState(false);
   const [recordStream, setRecordStream] = useState(false);
+  const [allStreams, setAllStreams] = useState<Array<IStreamData>>([]);
   const streamNameRef = useRef<HTMLInputElement>(null);
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
   });
+  const [{ data: walletConnection, error }] = useConnect();
+
+  useEffect(() => {
+    getStreamInstance("4").then((data) => {
+      console.log(data);
+      //@ts-ignore
+      setAllStreams(data);
+    });
+  }, []);
 
   const navigate = useNavigate();
   function handleCreateStream(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    if (Boolean(streamNameRef.current?.value)) {
+    if (
+      streamNameRef.current?.value &&
+      walletConnection.connected &&
+      accountData?.address
+    ) {
       setCreatingStream(true);
-
-      createStream(streamNameRef.current?.value, recordStream)
+      let streamName: string = streamNameRef.current?.value;
+      createStream(streamName, recordStream)
         .then((data) => {
           const { id } = data.data;
           createStreamInstance(
-            "1",
+            "4",
             "23232",
             id,
-            streamNameRef.current?.value,
+            streamName,
             accountData?.address
           )
             .then((data) => {
@@ -218,14 +236,23 @@ const LiveStreamSection = () => {
       <SectionTitle sectionName="Live Streams" />
       <div className={styles.streams_wrapper}>
         <div className={styles.streams_list}>
-          {" "}
-          {[1, 2, 3, 4, 5].map((index) => {
-            return (
-              <div className={styles.stream_card}>
-                <LiveStreamCard key={index} />
-              </div>
-            );
-          })}
+          {allStreams.length != 0
+            ? allStreams.map((data) => {
+                // console.log(data)
+                return (
+                  <Link to={`/stream/${data._id}`}>
+                    {" "}
+                    <div className={styles.stream_card}>
+                      <LiveStreamCard
+                        streamName={data.streamName}
+                        creatorAddress={data.creatorAddress}
+                        createdAt={data.createdAt}
+                      />
+                    </div>
+                  </Link>
+                );
+              })
+            : "no streams"}
         </div>
         <div className={styles.create_stream}>
           <div className={styles.create_stream_wrapper}>
