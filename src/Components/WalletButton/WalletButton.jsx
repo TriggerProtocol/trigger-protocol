@@ -30,7 +30,6 @@ export const WalletButton = () => {
       });
   }, [error]);
   useEffect(() => {
-    console.log(data.connectors);
     const handleClickOutisde = (event) => {
       if (wallet_ref.current && !wallet_ref.current.contains(event.target)) {
         setShowDropdown(false);
@@ -104,7 +103,9 @@ export const WalletButton = () => {
             <div
               disabled={connector.ready === false || data.connected}
               key={connector.id}
-              onClick={() => connect(connector)}
+              onClick={() => {
+                connect(connector);
+              }}
               className={styles.connector_button}
             >
               <img src={metaMask} alt="" />
