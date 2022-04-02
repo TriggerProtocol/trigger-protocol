@@ -10,7 +10,7 @@ import ipfs from "../../assets/logos/png/ipfs.png";
 import the_graph from "../../assets/logos/png/the_graph.png";
 import livepeer from "../../assets/logos/png/livepeer.png";
 import { ScrollDown } from "../../Components/ScrollDown";
-import { getAllStakesInPortal, getPortalNFTs, getPortals, getPortalUsers, getSingleUserStakes } from "theGraphFuncs";
+import { getAllStakesInPortal, getPortalNFTs, getPortals, getPortalUsers, getSingleUserStakes, getUserJoinedPortals } from "theGraphFuncs";
 
 export const Home = () => {
   useEffect(() => {
@@ -28,6 +28,9 @@ export const Home = () => {
 
     const h = getSingleUserStakes(3, "0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E")
     h.then(r => console.log(r))
+
+    const k = getUserJoinedPortals("0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E");
+    k.then(r => console.log(r));
   }, []);
   return (
     <div className={styles.landing_page}>

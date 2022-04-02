@@ -33,6 +33,53 @@ export const getPortals = async (): Promise<{
 };
 
 /**
+ * @param userAddr Address of the user who's portals are to be queried
+ * @returns List of portals joined
+*/
+export const getUserJoinedPortals = async (
+  userAddr: string
+): Promise<{
+  success: boolean;
+  data: any;
+}> => {
+  let portals: Array<any> = [];
+  const portalIDs = await axios.post(THE_GRAPH_ENDPOINT, {
+    query: `{
+      users(where: { userAddr: "${userAddr}" }) {
+      portal
+    }
+  }`,
+  });
+
+  portalIDs.data.data.users.map(async (portalId: { portal: string }) => {
+    let portal = await axios.post(THE_GRAPH_ENDPOINT, {
+      query: `{
+        triggerPortals(where: { portalId: ${portalId.portal} }) {
+        id
+        dbThreadID
+        appId
+        createdAt  
+        createBy
+        totalNfts
+        totalMembers
+        totalVolume
+        }
+      }`,
+    });
+
+    if (portal.data.data.triggerPortals[0]) {
+      portals.push(portal.data.data.triggerPortals[0]);
+    }
+  });
+
+  if (portalIDs.status === 200) {
+    return { success: true, data: portals };
+  } else {
+    return { success: false, data: [] };
+  }
+};
+
+/**
  * @param portalId Id corresponding to the portal who's NFTs are being queried.
  * @returns A list of all the NFTs inside that specific portal.
  */
@@ -57,6 +104,36 @@ export const getPortalNFTs = async (
 
   if (portalNFTs.status === 200) {
     return { success: true, data: portalNFTs.data.data.triggerNfts };
+  } else {
+    return { success: false, data: [] };
+  }
+};
+
+/**
+ * @param userAddr Address of the user who's NFTs are to be queried.
+ * @returns List of all the NFTs minted by the user irrespective of the portal.
+*/
+export const getUserNFTs = async (
+  userAddr: string
+): Promise<{ success: boolean; data: any }> => {
+  const userNFTs = await axios.post(THE_GRAPH_ENDPOINT, {
+    query: `{
+        triggerNfts(where: { currentOwner: "${userAddr}" }) {
+        id
+        portalId
+        tokenId
+        tokenUri
+        currentOwner
+        previousOwner
+        mintedBy
+        forSale
+        price
+      }
+    }`,
+  });
+
+  if (userNFTs.status === 200) {
+    return { success: true, data: userNFTs.data.data.triggerNfts };
   } else {
     return { success: false, data: [] };
   }
