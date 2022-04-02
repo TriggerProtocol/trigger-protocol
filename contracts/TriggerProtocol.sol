@@ -49,9 +49,11 @@ interface IERC721 {
 
     function ownerOf(uint256 tokenId) external view returns (address owner);
 
-    function mintNFT(string memory tokenURI, uint256 portalId)
-        external
-        returns (uint256 tokenId);
+    function mintNFT(
+        string memory tokenURI,
+        uint256 portalId,
+        uint256 price
+    ) external returns (uint256 tokenId);
 
     function toggleSale(uint256 price, uint256 tokenId) external;
 
@@ -117,6 +119,7 @@ contract TriggerProtocol {
         uint256 timestamp
     );
 
+    using SafeMath for uint256;
     using Counters for Counters.Counter;
     Counters.Counter private _portalIds;
     IERC20 public triggerTokenFactory;
@@ -126,8 +129,8 @@ contract TriggerProtocol {
     address private owner;
 
     uint256 LOCKIN_PEROID = 1 seconds; //change to 30 days
-    uint256 REWARD_RATE = 1; //should be 0.01
-
+    // uint256 BASIS_POINT=100;
+    uint256 REWARD_RATE = 100; //100 basis point is 1%
     struct Portal {
         string dbThreadID;
         address createdBy;
@@ -145,6 +148,7 @@ contract TriggerProtocol {
     mapping(uint256 => uint256[]) private portalNFTS;
     mapping(uint256 => mapping(address => uint256)) private portalXpBalances;
     mapping(uint256 => StakingData[]) private stakers;
+    mapping(uint256 => mapping(address => uint256)) private claimableAmount;
     mapping(uint256 => uint256) private totalStaked;
 
     constructor() {
@@ -227,13 +231,15 @@ contract TriggerProtocol {
         emit PortalXPClaimed(_portalId, msg.sender, _amount);
     }
 
-    function mintNFT(uint256 _portalId, string memory _tokenURI)
-        public
-        onlyJoined(_portalId)
-    {
+    function mintNFT(
+        uint256 _portalId,
+        string memory _tokenURI,
+        uint256 _price
+    ) public onlyJoined(_portalId) {
         uint256 tokenId = triggerNFTtokenFactory.mintNFT(
             _tokenURI,
-            _portalId
+            _portalId,
+            _price
         );
 
         portalNFTS[_portalId].push(tokenId);
@@ -245,8 +251,8 @@ contract TriggerProtocol {
             msg.sender,
             msg.sender,
             msg.sender,
-            false,
-            0
+            true,
+            _price
         );
     }
 
@@ -272,29 +278,27 @@ contract TriggerProtocol {
             triggerTokenFactory.allowance(msg.sender, address(this)) >= price,
             "please approve token"
         );
-        // uint256 totalRewardsAmount = REWARD_RATE * price;
+        uint256 totalRewardsAmount = (price * REWARD_RATE) / 10000;
 
         triggerNFTtokenFactory.transferNFT(tokenId);
         triggerTokenFactory.transferFrom(msg.sender, currentOwner, price);
 
         //send total rewardsAmount to contract
-        // triggerTokenFactory.transferFrom(msg.sender, address(this), totalRewardsAmount);
+        triggerTokenFactory.transferFrom(
+            msg.sender,
+            address(this),
+            totalRewardsAmount
+        );
 
         //distribute rewards and store in mapping for tht portal
-        // rewardStakers(portalId, totalRewardsAmount);
+        distribureRewards(portalId, totalRewardsAmount);
     }
 
     function stake(uint256 _portalId, uint256 _amount)
         public
         onlyJoined(_portalId)
     {
-        require(
-            triggerXpTokenFactory.allowance(msg.sender, address(this)) >=
-                _amount,
-            "please approve token"
-        );
-        //change to triggerTokenFactory
-        triggerXpTokenFactory.transferFrom(msg.sender, address(this), _amount);
+        triggerXpTokenFactory.transfer(address(this), _amount);
         StakingData memory _stakeDet = StakingData(
             msg.sender,
             _amount,
@@ -302,7 +306,6 @@ contract TriggerProtocol {
         );
         stakers[_portalId].push(_stakeDet);
         totalStaked[_portalId] += _amount;
-        emit Staked(_portalId, msg.sender, _amount, _stakeDet.timestamp);
     }
 
     function withdraw(uint256 _portalId) public onlyJoined(_portalId) {
@@ -329,17 +332,31 @@ contract TriggerProtocol {
             }
         }
         totalStaked[_portalId] -= _amount;
+        claimRewards(_portalId);
 
         emit Staked(_portalId, msg.sender, 0, 0);
     }
 
-    function rewardStakers(uint256 _portalId, uint256 _totalRewardAmount)
+    function distribureRewards(uint256 _portalId, uint256 _totalRewardAmount)
         internal
     {
-        //split rewards and store in mapping with portal id
+        uint256 weightage = 0;
+        uint256 claim_amt = 0;
+        if (stakers[_portalId].length == 0) return;
+
+        for (uint256 i = 0; i < stakers[_portalId].length; i++) {
+            weightage = stakers[_portalId][i].amount.mul(100).div(
+                totalStaked[_portalId]
+            );
+            claim_amt = _totalRewardAmount.mul(weightage.mul(10)).div(1000);
+            claimableAmount[_portalId][msg.sender] = claim_amt;
+        }
     }
 
     function claimRewards(uint256 _portalId) public {
-        //transfer tokens from contract to msg.sender if he has any claimable token
+        uint256 claim_bal = claimableAmount[_portalId][msg.sender];
+        require(claim_bal > 0, "No claimble rewards");
+        triggerXpTokenFactory.transfer(msg.sender, claim_bal);
+        claimableAmount[_portalId][msg.sender] = 0;
     }
 }
