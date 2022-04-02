@@ -10,10 +10,26 @@ import ipfs from "../../assets/logos/png/ipfs.png";
 import the_graph from "../../assets/logos/png/the_graph.png";
 import livepeer from "../../assets/logos/png/livepeer.png";
 import { ScrollDown } from "../../Components/ScrollDown";
-import { getAllStakesInPortal, getPortalNFTs, getPortals, getPortalUsers, getSingleUserStakes, getUserJoinedPortals } from "theGraphFuncs";
+import {
+  getAllStakesInPortal,
+  getPortalNFTs,
+  getPortals,
+  getPortalUsers,
+  getSingleUserStakes,
+  getUserJoinedPortals,
+} from "theGraphFuncs";
+import axios from "axios";
 
 export const Home = () => {
   useEffect(() => {
+    const data = { userId: "76561199061887574" };
+    axios
+      .post("https://trigger-protocol-api.herokuapp.com/tgr-api/owned-games", data)
+      .then((r) => console.log(r))
+      .catch((err) => {
+        console.log(err);
+      });
+
     const f = getPortals();
     f.then((d) => console.log(d));
 
@@ -26,17 +42,29 @@ export const Home = () => {
     const s = getAllStakesInPortal(3);
     s.then((r) => console.log(r));
 
-    const h = getSingleUserStakes(3, "0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E")
-    h.then(r => console.log(r))
+    const h = getSingleUserStakes(
+      3,
+      "0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E"
+    );
+    h.then((r) => console.log(r));
 
-    const k = getUserJoinedPortals("0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E");
-    k.then(r => console.log(r));
+    const k = getUserJoinedPortals(
+      "0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E"
+    );
+    k.then((r) => console.log(r));
+
+    axios
+      .get("http://127.0.0.1:8000/auth/steam/logged-data")
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
   }, []);
   return (
     <div className={styles.landing_page}>
       <section className={styles.intro} id="intro">
         <Intro />
-        <a className={styles.scroll} href="#hiw">
+        <a className={styles.scroll} href="http://127.0.0.1:8000/auth/steam">
           <ScrollDown />
         </a>
       </section>
