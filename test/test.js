@@ -2,8 +2,13 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const hre = require("hardhat");
 describe("Trigger Protocol", function () {
+  let owner;
+  let addr1;
+  let addr2;
+  let addrs;
   beforeEach(async function () {
     await hre.network.provider.send("hardhat_reset");
+    [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
   });
   it("Contracts deployed", async function () {
     const TriggerTokenFactory = await ethers.getContractFactory("TriggerToken");
@@ -43,48 +48,76 @@ describe("Trigger Protocol", function () {
 
     describe("Create portal ", () => {
       it("Portal Created", async function () {
-        const trigTxn = await triggerProtocol.createPortal("d32sadc",5500);
+        const trigTxn = await triggerProtocol.createPortal("d32sadc", 5500);
+        await trigTxn.wait();
+        trigTxn = await triggerProtocol
+          .connect(addr2)
+          .createPortal("d32sadc", 5500);
         await trigTxn.wait();
       });
     });
     describe("join portal ", () => {
       it("Portal joined", async function () {
-        const trigTxn = await triggerProtocol.joinPortal(0);
+        const trigTxn = await triggerProtocol.joinPortal(1);
+        await trigTxn.wait();
+        trigTxn = await triggerProtocol.connect(addr2).joinPortal(1);
         await trigTxn.wait();
       });
     });
 
     describe("Mint NFT Token", () => {
       it("NFT minted", async function () {
-        const trigTxn = await triggerProtocol.mintToken(0, "dssdcd32");
+        const trigTxn = await triggerProtocol.mintNFT(1, "dssdcd32");
         await trigTxn.wait();
       });
     });
 
     describe("Claim XP Token", () => {
       it("XP Token Claimed", async function () {
-        const trigTxn = await triggerProtocol.claimXpToken(0, 100);
+        const trigTxn = await triggerProtocol.claimXpToken(
+          1,
+          ethers.utils.parseUnits("2", "ether")
+        );
+        await trigTxn.wait();
+        trigTxn = await triggerProtocol
+          .connect(addr2)
+          .claimXpToken(1, ethers.utils.parseUnits("5", "ether"));
         await trigTxn.wait();
       });
     });
     describe("Stake Token", () => {
       it("Token Staked ", async function () {
-        const trigTxn = await triggerXpToken.approve(
-          triggerProtocol.address,
-          20
+        // const trigTxn = await triggerXpToken.approve(
+        //   triggerProtocol.address,
+        //   20
+        // );
+        // await trigTxn.wait();
+
+        const trigTxn1 = await triggerProtocol.stake(
+          1,
+          ethers.utils.parseUnits("1", "ether")
         );
-        await trigTxn.wait();
-        const trigTxn1 = await triggerProtocol.stake(0, 20);
+        await trigTxn1.wait();
+        trigTxn1 = await triggerProtocol
+          .connect(addr2)
+          .stake(1, ethers.utils.parseUnits("0.5", "ether"));
         await trigTxn1.wait();
       });
     });
-    describe("staked Token Withdrawal", () => {
-      it("Token withdrawed ", async function () {
-        setTimeout(async () => {
-          const trigTxn1 = await triggerProtocol.withdraw(0);
-          await trigTxn1.wait();
-        }, 2000);
+
+    describe("Distribute Stake", () => {
+      it("reward distributed ", async function () {
+        const trigTxn1 = await triggerProtocol.distribureRewards(1,ethers.utils.parseUnits("10", "ether"));
+        await trigTxn1.wait();
       });
     });
+    // describe("staked Token Withdrawal", () => {
+    //   it("Token withdrawed ", async function () {
+    //     setTimeout(async () => {
+    //       const trigTxn1 = await triggerProtocol.withdraw(1);
+    //       await trigTxn1.wait();
+    //     }, 2000);
+    //   });
+    // });
   });
 });
