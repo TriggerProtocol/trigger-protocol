@@ -6,6 +6,6 @@ contract TriggerXpToken is ERC20 {
     constructor(uint256 _initialSupply, address _triggerContract)
         ERC20("TriggerXpToken", "xTGR")
     {
-        _mint(_triggerContract, _initialSupply);
+        _mint(_triggerContract, _initialSupply * 10**decimals());
     }
 }
