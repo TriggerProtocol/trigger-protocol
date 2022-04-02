@@ -77,17 +77,20 @@ export const StreamLayout: React.FC<PropType> = ({
       </div>
       <div className={styles.stream_details}>{children}</div>
       <div className={styles.stream_chat}>
-        <h2>Live Chat</h2>
-        <iframe
-          title="Chat"
-          src={convoURL}
-          // allowTransparency={true}
-          width={"100%"}
-          height={"100%"}
-          loading="eager"
-        >
-          chats
-        </iframe>
+        <div className={styles.chat_wrapper}>
+          {" "}
+          <h2>Live Chat</h2>
+          <iframe
+            title="Chat"
+            src={convoURL}
+            // allowTransparency={true}
+            width={"100%"}
+            height={"100%"}
+            loading="eager"
+          >
+            chats
+          </iframe>
+        </div>
       </div>
     </div>
   );

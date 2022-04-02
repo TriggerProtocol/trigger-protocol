@@ -36,7 +36,7 @@ function App() {
               path="/streamer-dashboard/:id"
               element={<LiveStreamDashboard />}
             />{" "}
-            <Route path="/stream" element={<LiveStream />} />
+            <Route path="/stream/:id" element={<LiveStream />} />
           </Routes>
           <ToastContainer position="bottom-right" theme="dark" />
         </main>
