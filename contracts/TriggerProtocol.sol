@@ -142,7 +142,7 @@ contract TriggerProtocol {
         uint256 amount;
         uint256 timestamp;
     }
-    mapping(address => string) private connectSteamID;
+    mapping(address => string) private linkedStreamAccount;
     mapping(uint256 => Portal) private portals;
     mapping(uint256 => mapping(address => bool)) private portalMembers;
     mapping(uint256 => uint256[]) private portalNFTS;
@@ -177,6 +177,10 @@ contract TriggerProtocol {
     }
 
     /* ========== Public Functions ========== */
+    function linkStreamAccount(string calldata streamId) public {
+        linkedStreamAccount[msg.sender] = streamId;
+    }
+
     function setFactoryAddresses(
         address _triggerTokenAddress,
         address _triggerXpTokenAddress,

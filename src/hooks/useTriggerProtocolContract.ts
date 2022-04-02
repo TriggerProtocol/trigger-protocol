@@ -13,6 +13,11 @@ export const useTriggerProtocolContract = () => {
     contractInterface: TriggerContract.abi,
     signerOrProvider: signer.data || provider,
   });
+  const linkStreamAccount = async (streamId: string) => {
+    const txn = await contract.linkStreamAccount(streamId);
+    await txn.wait();
+    return txn;
+  };
   const createPortal = async ({ dbThreadID, appID }: IPortal) => {
     const txn = await contract.createPortal(dbThreadID, appID);
     await txn.wait();
@@ -59,6 +64,7 @@ export const useTriggerProtocolContract = () => {
   return {
     contract,
     chainId: contract.provider.network?.chainId,
+    linkStreamAccount,
     createPortal,
     joinPortal,
     claimXpToken,
