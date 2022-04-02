@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Home.module.scss";
 
 // Assets
@@ -10,8 +10,28 @@ import ipfs from "../../assets/logos/png/ipfs.png";
 import the_graph from "../../assets/logos/png/the_graph.png";
 import livepeer from "../../assets/logos/png/livepeer.png";
 import { ScrollDown } from "../../Components/ScrollDown";
+import { getAllStakesInPortal, getPortalNFTs, getPortals, getPortalUsers, getSingleUserStakes, getUserJoinedPortals } from "theGraphFuncs";
 
 export const Home = () => {
+  useEffect(() => {
+    const f = getPortals();
+    f.then((d) => console.log(d));
+
+    const d = getPortalNFTs(3);
+    d.then((k) => console.log(k));
+
+    const e = getPortalUsers(3);
+    e.then((r) => console.log(r));
+
+    const s = getAllStakesInPortal(3);
+    s.then((r) => console.log(r));
+
+    const h = getSingleUserStakes(3, "0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E")
+    h.then(r => console.log(r))
+
+    const k = getUserJoinedPortals("0x733024e367b2FcABa7c4957d041Bf90fa58C3C4E");
+    k.then(r => console.log(r));
+  }, []);
   return (
     <div className={styles.landing_page}>
       <section className={styles.intro} id="intro">
