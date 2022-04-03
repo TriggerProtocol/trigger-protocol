@@ -66,6 +66,8 @@ export const PortalPage = () => {
   );
 };
 const PortalMainSection = () => {
+  const [popupToggle, setPopuptoggle] = useState(false);
+
   const { contract, createPortal } = useTriggerProtocolContract();
   const data: IPortal = {
     dbThreadID: "3232",
@@ -139,7 +141,9 @@ const PortalMainSection = () => {
             </div>
           </div>
 
-          <button className="btn-md">Stake</button>
+          <button className="btn-md" onClick={() => setPopuptoggle(true)}>
+            Stake
+          </button>
         </div>
 
         <div className={styles.seperator}></div>
@@ -175,6 +179,42 @@ const PortalMainSection = () => {
           <button className="btn-sm">Claim 15xTGR</button>
         </div>
       </div>
+      <PopupModal
+        modalTitle="Manage Staking"
+        toggleModal={popupToggle}
+        setToggleModal={(state) => setPopuptoggle(state)}
+        height={"350px"}
+        width={"fit-content"}
+      >
+        <div className={styles.stake_popoup_wrapper}>
+          <form action="" className={`${styles.stake_form} form-ui`}>
+            <div className="form_input_balance">
+              <div className="wrap_input_head">
+                <label htmlFor="">Enter Amount</label>
+                <p id="balance">Balance : 0 xTGR</p>
+              </div>
+              <div className="big_input">
+                <input type="number" defaultValue={0.0} />
+                <p id="max-btn">max</p>
+              </div>
+            </div>
+            <button className="btn-md">Stake</button>
+          </form>
+          <div className={styles.seperator}></div>
+          <div className={styles.stake_details}>
+            <div className={styles.details_item}>
+              <p className="heading2">100xTGR</p>
+              <p>My Total Stake</p>
+              <button className="btn-md">Withdraw</button>
+            </div>
+            <div className={styles.details_item}>
+              <p className="heading2">10TGR</p>
+              <p>Total Rewards Earned</p>
+              <button className="btn-md">Claim</button>
+            </div>
+          </div>
+        </div>
+      </PopupModal>
     </div>
   );
 };
@@ -190,11 +230,38 @@ const LiveStreamSection = () => {
   const [{ data: walletConnection, error }] = useConnect();
 
   useEffect(() => {
-    getStreamInstance("4").then((data) => {
-      console.log(data);
-      //@ts-ignore
-      setAllStreams(data);
-    });
+    let interval = setInterval(() => {
+      getStreamInstance("4").then((instance) => {
+        // console.log(data);
+        console.log("test");
+        var FinalStreams: Array<{ id: string; isActive: boolean }> = [];
+        let allPromise = instance.map(async (stream) => {
+          await getStreamData(stream.streamId).then(({ data }) => {
+            FinalStreams.push(data);
+          });
+        });
+
+        Promise.all(allPromise).then(() => {
+          instance.map((stream) => {
+            FinalStreams.map((data) => {
+              if (data.id == stream.streamId) {
+                if (data.isActive && !allStreams.includes(stream)) {
+                  setAllStreams([stream]);
+                } else {
+                  setAllStreams([
+                    ...allStreams.filter(
+                      (stream) => stream.streamId !== data.id
+                    ),
+                  ]);
+                }
+              }
+            });
+          });
+        });
+        //@ts-ignore
+      });
+      return () => clearInterval(interval);
+    }, 5000);
   }, []);
 
   const navigate = useNavigate();
@@ -218,8 +285,7 @@ const LiveStreamSection = () => {
             accountData?.address
           )
             .then((data) => {
-              console.log(data);
-              navigate(`/streamer-dashboard/${id}`);
+              navigate(`/streamer-dashboard/${data[0]}`);
               setCreatingStream(false);
             })
             .catch((err) => {
@@ -238,7 +304,6 @@ const LiveStreamSection = () => {
         <div className={styles.streams_list}>
           {allStreams.length != 0
             ? allStreams.map((data) => {
-                // console.log(data)
                 return (
                   <Link to={`/stream/${data._id}`}>
                     {" "}
@@ -281,7 +346,7 @@ const LiveStreamSection = () => {
         ) : (
           <form action="" className={`${styles.create_stream_form} form-ui`}>
             <label htmlFor="">Stream Name</label>
-            <input type="text" ref={streamNameRef} />
+            <input type="text" className="input-black" ref={streamNameRef} />
             <div className={styles.stream_form_flex}>
               <label htmlFor="" className={styles.record_label}>
                 Record Stream
