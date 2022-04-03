@@ -5,6 +5,8 @@ import { Portal } from "Components/Portal";
 import { PortalCard } from "Components/PortalCard";
 import ScrollToTop from "utils/ScrollToTop";
 import styles from "./explore-portals.module.scss";
+
+import { fakeData } from "utils/fakeData";
 export const ExplorePortalsPage = () => {
   return (
     <div className={styles.container}>
@@ -22,31 +24,34 @@ const TrendingPortal = () => {
         <Portal />
       </div>
       <div className={styles.portal_card}>
-        <Link to="/portal/1">
-          <PortalCard gameTitle="Little Nightmare" handleClick={() => {}} />
+        <Link to={`/portal/${fakeData[4].appid}`}>
+          <PortalCard
+            gameTitle={fakeData[4].gameName}
+            gameDescription={fakeData[4].shortDescription}
+            gameThumbnail={fakeData[4].gameThumbnail}
+            handleClick={() => {}}
+          />
         </Link>
       </div>
       <div className={styles.portal_details}>
         <div className={styles.portal_title}>
-          <h1>Little Nightmares</h1>
+          <h1>{fakeData[4].gameName}</h1>
         </div>
         <div className={styles.portal_stats}>
           <div className={styles.stat}>
             <div className={styles.data}>
               <p>
-                100<span> xTGR</span>
+                520<span> xTGR</span>
               </p>
             </div>
             <div className={styles.title}>
-              <p>Total NFTS</p>
+              <p>Total Value Locked</p>
             </div>
           </div>
           <div className={styles.sub_stats}>
             <div className={styles.stat}>
               <div className={styles.data}>
-                <p>
-                  100<span> xTGR</span>
-                </p>
+                <p>120</p>
               </div>
               <div className={styles.title}>
                 <p>Total NFTS</p>
@@ -57,27 +62,29 @@ const TrendingPortal = () => {
             <div className={styles.stat}>
               <div className={styles.data}>
                 <p>
-                  100<span> xTGR</span>
+                  100k<span>TGR</span>
                 </p>
               </div>
               <div className={styles.title}>
-                <p>Total NFTS</p>
+                <p>Total Volume</p>
               </div>
             </div>
             <div className={styles.seperator}></div>
             <div className={styles.stat}>
               <div className={styles.data}>
                 <p>
-                  100<span> xTGR</span>
+                  1.2<span>TGR/Transactions</span>
                 </p>
               </div>
               <div className={styles.title}>
-                <p>Total NFTS</p>
+                <p>Reward rate</p>
               </div>
             </div>
           </div>
         </div>
-        <button className="btn-lg">Join Portal</button>
+        <Link to={`/portal/${fakeData[4].appid}`}>
+          <button className="btn-lg">Join Portal</button>
+        </Link>
       </div>
     </div>
   );
@@ -86,10 +93,15 @@ const TrendingPortal = () => {
 const PortalsList = () => {
   return (
     <div className={styles.portals_list_container}>
-      {[1, 2, 3, 4, 5].map((index) => (
-        <Link to="/portal/1">
+      {fakeData.map((data) => (
+        <Link to={`/portal/${data.appid}`}>
           {" "}
-          <PortalCard gameTitle="Little Nightmare" handleClick={() => {}} />
+          <PortalCard
+            gameTitle={data.gameName}
+            gameDescription={data.shortDescription}
+            gameThumbnail={data.gameThumbnail}
+            handleClick={() => {}}
+          />
         </Link>
       ))}
     </div>

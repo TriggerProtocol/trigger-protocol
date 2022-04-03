@@ -1,6 +1,6 @@
 import React, { MouseEvent, useEffect, useState, useRef } from "react";
 import { Icon } from "@iconify/react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { useAccount, useConnect } from "wagmi";
 //hooks
 import {
@@ -34,6 +34,13 @@ import {
   deleteStream,
 } from "configs/livepeer.config";
 import { MintForm } from "Components/MintForm";
+import { fakeData } from "utils/fakeData";
+type GameData = {
+  appid: string;
+  gameName: string;
+  gameThumbnail: string;
+  shortDescription: string;
+};
 export const PortalPage = () => {
   useEffect(() => {
     getPortalInstance("dsewew").then((data) => {
@@ -67,21 +74,32 @@ export const PortalPage = () => {
   );
 };
 const PortalMainSection = () => {
-  const [popupToggle, setPopuptoggle] = useState(false);
+  const { portalId } = useParams();
 
+  const [popupToggle, setPopuptoggle] = useState(false);
+  const [portalData, setPortalData] = useState<GameData>();
   const { contract, createPortal } = useTriggerProtocolContract();
   const data: IPortal = {
     dbThreadID: "3232",
     appID: 3232,
   };
-  function handleCreatePortal() {
-    createPortal(data)
-      .then((txn) => {
-        console.log(txn);
-      })
-      .catch((err) => {
-        console.log(err);
+  useEffect(() => {
+    if (portalId) {
+      fakeData.map((data) => {
+        if (data.appid === portalId) {
+          setPortalData(data);
+        }
       });
+    }
+  }, []);
+  function handleCreatePortal() {
+    // createPortal(data)
+    //   .then((txn) => {
+    //     console.log(txn);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
   return (
     <div className={styles.main_section}>
@@ -97,16 +115,10 @@ const PortalMainSection = () => {
       <div className={`${styles.portal_details} solid_border`}>
         <div className={styles.app_data}>
           <div className={styles.app_name}>
-            <h2>DOTA 2</h2>
+            <h2>{portalData?.gameName}</h2>
           </div>
           <div className={styles.app_description}>
-            <p>
-              Dota is a series of strategy video games now developed by Valve.
-              The series began in 2003 with the release of Defense of the
-              Ancients, a fan-developed multiplayer online battle arena mod for
-              the video game Warcraft III: Reign of Chaos and its expansion, The
-              Frozen Throne.
-            </p>
+            <p>{portalData?.shortDescription}</p>
           </div>
           <div className={styles.portal_creator}>
             <p className="heading3">Created By</p>
@@ -116,11 +128,11 @@ const PortalMainSection = () => {
         <div className={styles.stats_join}>
           <div className={styles.portal_stats}>
             <div className={styles.stat}>
-              <p className={styles.data}>100</p>
+              <p className={styles.data}>150</p>
               <p className={styles.title}>Total NFTs</p>
             </div>
             <div className={styles.stat}>
-              <p className={styles.data}>120</p>
+              <p className={styles.data}>960</p>
               <p className={styles.title}>Total Gamers in portal</p>
             </div>
           </div>
