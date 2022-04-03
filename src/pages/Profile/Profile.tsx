@@ -11,6 +11,7 @@ import {
   undoCreatePortal,
 } from "configs/textile.io.configs";
 import { useTriggerProtocolContract } from "hooks";
+import { fakeData } from "utils/fakeData";
 
 const axiosApiInstance = axios.create({
   baseURL: "https://trigger-protocol-api.herokuapp.com/",
@@ -102,14 +103,13 @@ const MyNfts = () => {
     </>
   );
 };
-type gameData = {
+export type gameData = {
   appid: string;
   gameName: string;
   shortDescription: string;
   gameThumbail: string;
 };
 const MyGames = () => {
- 
   const [ownedGames, setOwnedGames] = useState<Array<gameData>>([]);
   const [loading, setLoading] = useState(true);
   const [{ data: accountData }, disconnect] = useAccount({
