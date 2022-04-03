@@ -100,12 +100,39 @@ const MyNfts = () => {
   );
 };
 type gameData = {
-  name: string;
+  appid: string;
+  gameName: string;
   shortDescription: string;
   gameThumbnail: string;
 };
 const MyGames = () => {
-  const [ownedGames, setOwnedGames] = useState<Array<gameData>>([]);
+  const gdata: gameData[] = [
+    {
+      appid: "214521",
+      gameName: "Tom Clancy's Rainbow Six® Siege",
+      shortDescription:
+        "Tom Clancy's Rainbow Six Siege is the latest installment of the acclaimed first-person shooter franchise developed by the renowned Ubisoft Montreal studio.",
+      gameThumbnail:
+        "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1647433052",
+    },
+    {
+      appid: "3234",
+      gameName: "ARK: Survival Evolved",
+      shortDescription:
+        "Stranded on the shores of a mysterious island, you must learn to survive. Use your cunning to kill or tame the primeval creatures roaming the land, and encounter other players to survive, dominate... and escape!",
+      gameThumbnail:
+        "https://cdn.akamai.steamstatic.com/steam/apps/346110/header.jpg?t=1644270935",
+    },
+    {
+      appid: "21232",
+      gameName: "Counter-Strike: Global Offensive",
+      shortDescription:
+        "Counter-Strike: Global Offensive (CS:GO) расширяет границы ураганной командной игры, представленной ещё 19 лет назад. CS:GO включает в себя новые карты, персонажей, оружие и режимы игры, а также улучшает классическую составляющую CS (de_dust2 и т. п.).",
+      gameThumbnail:
+        "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1641233427",
+    },
+  ];
+  const [ownedGames, setOwnedGames] = useState<Array<gameData>>(gdata);
   const [loading, setLoading] = useState(true);
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
@@ -122,9 +149,13 @@ const MyGames = () => {
       )
       .then((data) => {
         if (data.status === 200) {
-          setOwnedGames(data.data);
+          console.log(data);
+          // setOwnedGames(data.data);
           setLoading(false);
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -132,34 +163,44 @@ const MyGames = () => {
   function handleCreatePortal(gameData: any) {
     if (walletConnection.connected && accountData?.address) {
       createPortalInstance(
-        gameData.name,
-        gameData.appId,
+        gameData.gameName,
+        String(gameData.appid),
         gameData.shortDescription,
         gameData.gameThumbnail,
         accountData?.address
-      ).then((data) => {
-        console.log(data);
-        // createPortal({ dbThreadID: data._id, appID: gameData.appId }).then(
-        //   () => {}
-        // );
-      });
+      )
+        .then((data) => {
+          console.log(data);
+          createPortal({ dbThreadID: data[0], appID: gameData.appid })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("not connected");
     }
   }
   return (
     <>
-      {
-        loading ? "Loading" : console.log(ownedGames)
-        // ? ownedGames.map((data) => (
-        //     <PortalCard
-        //       gameTitle={data.name}
-        //       gameDescription={data.shortDescription}
-        //       gameThumbnail={data.gameThumbnail}
-        //       createPortal={true}
-        //       handleClick={() => handleCreatePortal(data)}
-        //     />
-        //   ))
-        // : "no games"
-      }
+      {false
+        ? "Loading"
+        : ownedGames.length !== 0
+        ? ownedGames.map((data) => (
+            <PortalCard
+              gameTitle={data.gameName}
+              gameDescription={data.shortDescription}
+              gameThumbnail={data.gameThumbnail}
+              createPortal={true}
+              handleClick={() => handleCreatePortal(data)}
+            />
+          ))
+        : "no games"}
     </>
   );
 };

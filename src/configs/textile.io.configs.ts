@@ -51,8 +51,13 @@ export async function createPortalInstance(
     thumbnail: thumbnail,
     creator: creator,
   };
-  // await client.create(threadId, portalCollectionName, [data]);
-  return { exist, data };
+    console.log(data)
+
+  if (exist.length == 0) {
+    return await client.create(threadId, portalCollectionName, [data]);
+  }
+  throw Error("already exit");
+  // return { exist, data };
 }
 export async function getAllPortalInstances() {
   const client = await getClient();
