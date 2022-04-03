@@ -24,18 +24,18 @@ const TrendingPortal = () => {
         <Portal />
       </div>
       <div className={styles.portal_card}>
-        <Link to={`/portal/${fakeData[4].appid}`}>
+        <Link to={`/portal/${fakeData[7].appid}`}>
           <PortalCard
-            gameTitle={fakeData[4].gameName}
-            gameDescription={fakeData[4].shortDescription}
-            gameThumbnail={fakeData[4].gameThumbnail}
+            gameTitle={fakeData[7].gameName}
+            gameDescription={fakeData[7].shortDescription}
+            gameThumbnail={fakeData[7].gameThumbnail}
             handleClick={() => {}}
           />
         </Link>
       </div>
       <div className={styles.portal_details}>
         <div className={styles.portal_title}>
-          <h1>{fakeData[4].gameName}</h1>
+          <h1>{fakeData[7].gameName}</h1>
         </div>
         <div className={styles.portal_stats}>
           <div className={styles.stat}>
@@ -82,7 +82,7 @@ const TrendingPortal = () => {
             </div>
           </div>
         </div>
-        <Link to={`/portal/${fakeData[4].appid}`}>
+        <Link to={`/portal/${fakeData[7].appid}`}>
           <button className="btn-lg">Join Portal</button>
         </Link>
       </div>

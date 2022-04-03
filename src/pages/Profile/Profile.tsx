@@ -107,10 +107,10 @@ export type gameData = {
   appid: string;
   gameName: string;
   shortDescription: string;
-  gameThumbnail: string;
+  gameThumbail: string;
 };
 const MyGames = () => {
-  const [ownedGames, setOwnedGames] = useState<Array<gameData>>(fakeData);
+  const [ownedGames, setOwnedGames] = useState<Array<gameData>>([]);
   const [loading, setLoading] = useState(true);
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
@@ -144,7 +144,7 @@ const MyGames = () => {
         gameData.gameName,
         String(gameData.appid),
         gameData.shortDescription,
-        gameData.gameThumbnail,
+        gameData.gameThumbail,
         accountData?.address
       )
         .then((data) => {
@@ -173,7 +173,7 @@ const MyGames = () => {
             <PortalCard
               gameTitle={data.gameName}
               gameDescription={data.shortDescription}
-              gameThumbnail={data.gameThumbnail}
+              gameThumbnail={data.gameThumbail}
               createPortal={true}
               handleClick={() => handleCreatePortal(data)}
             />
