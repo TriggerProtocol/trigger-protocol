@@ -32,7 +32,7 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 
 - Game artists and fans can join the game portals by buying or minting NFTs from a particular portal! <br>
 - This will not only help them showcase their talent and affection towards their favorite games but also get to join the community of like-minded fans and game enthusiasts! <br>
-- Artists and NFT holders can participate in NFT liquidity pools which have their own awesome benefits! <br>
+- Users can easily host live streams corresponding to that specific game inside the portal!
 - And at last of course buying and selling of NFTs which can hugely benefit NFT holders and Portal owners as well! <br>
 
 ## How Trigger Actually Works? 🚀
@@ -48,11 +48,16 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 ## Features 🌟️
 
 - NFT Portals <br>
-- Revenue for Portal Owners. <br>
-- NFT Marketplace inside Portals. <br>
-- NFT Liquidity Pools. <br>
-- Platform for Artists & Gamers. <br>
-- Low-Cost NFT Minting, thanks to Polygon! <br>
+  Users can create game portals for their owned games from steam. Which allows them to be the owners of the portal.<br>
+
+- Rewards for stakers <br>
+  Percentage of each transaction in portal is rewarded to stakers based on how much $xTGR they are staking. $xTGR is an XP token that is earned based on the XP or achievements earned inside that particular game. <br>
+
+- NFT Marketplace inside Portals <br>
+  Each portal has an NFT marketplace in which users can mint, buy or sell NFTs of the game to which the portal corresponds to. <br>
+
+- Host live streams inside portals
+  Trigger allows users to host live streams about that specific game to which the portal corresponds using the awesome livepeer. <br>
 
 ## Getting Started
 
@@ -100,7 +105,10 @@ Our Official Website: [Paper-House.netlify.app/](https://github.com/TriggerProto
 ```json
 {
   "80001": {
-    "Trigger": "****************"
+    "Trigger Protocol": "0x8567dCB41bEf8cb55Ee076522B34109619fd16E1",
+    "Trigger Token (TGR)": "0x94855217fD16D28d12344831C243c6BE0464077F",
+    "Trigger Token (xTGR)": "0xea99693972768cD73547F75a595215c2FCB3F3c2",
+    "NFT": "0x8eC784CbDe3602a9A61f757A8ABFB6D4907BF783"
   }
 }
 ```
