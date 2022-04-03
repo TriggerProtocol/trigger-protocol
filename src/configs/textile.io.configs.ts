@@ -51,7 +51,7 @@ export async function createPortalInstance(
     thumbnail: thumbnail,
     creator: creator,
   };
-    console.log(data)
+  console.log(data);
 
   if (exist.length == 0) {
     return await client.create(threadId, portalCollectionName, [data]);
@@ -104,4 +104,8 @@ export async function createStreamInstance(
 export async function deleteStreamInstance(id: string) {
   const client = await getClient();
   return await client.delete(threadId, streamsCollectionName, [id]);
+}
+export async function undoCreatePortal(id: string) {
+  const client = await getClient();
+  return await client.delete(threadId, portalCollectionName, [id]);
 }

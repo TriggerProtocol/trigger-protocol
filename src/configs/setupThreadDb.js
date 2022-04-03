@@ -36,7 +36,7 @@ const liveStreamSchema = {
 };
 async function setupDB() {
   // Initialize the client
-  const client = Client.withKeyInfo(keyInfo);
+  const client = await Client.withKeyInfo(keyInfo);
   // const threads = (await client).listThreads();
   // console.log(await threads);
   //   (await client).deleteDB(
@@ -54,21 +54,16 @@ async function setupDB() {
   // console.log("collection Created");
   //   return (await threadID).toString();
 
-  // const found = (await client).delete(threadID, "liveStreams", [
-  //   "1d5fc9e3-fb28-4071-b6cc-cef9053181c5",
-  //   "20bfd9eb-07a0-4716-a5e7-90cce18033a1",
-  //   "3fe9c84b-2b9b-492e-96c6-bbbc15087291",
-  //   "7eef05f2-5b12-401f-a9fe-499083f0ebbd",
-  //   "848691b3-bbc9-4818-8df5-ba5225ecee4f",
-  //   "ad04a250-3c01-423e-a6ca-c74914794225",
-  //   "cc537893-3573-4e4d-a3ab-5e1b53babf64",
-  // ]);
+  // const found = (await client).delete(threadID, "liveStreams");
   // await found;
   // console.log(found);
-  // const found = (await client).find(threadID, "liveStreams", {});
-  // await found;
-  // console.log(found);
-  //   found.then((data) => console.log(data));
+  const found = await client.find(threadID, "portals", {});
+  console.log(found)
+  // let ids = found.map((data) => {
+  //   return data._id;
+  // });
+  // console.log(ids);
+  // client.delete(threadID, "portals", ids).then((data) => {});
 }
 setupDB().then(() => {
   //   console.log();

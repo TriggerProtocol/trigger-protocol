@@ -9,7 +9,7 @@ export const useTriggerProtocolContract = () => {
   const [signer] = useSigner();
   const provider = useProvider();
   const contract = useContract({
-    addressOrName: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    addressOrName: "0x94855217fD16D28d12344831C243c6BE0464077F",
     contractInterface: TriggerContract.abi,
     signerOrProvider: signer.data || provider,
   });
@@ -19,7 +19,9 @@ export const useTriggerProtocolContract = () => {
     return txn;
   };
   const createPortal = async ({ dbThreadID, appID }: IPortal) => {
-    const txn = await contract.createPortal(dbThreadID, appID);
+    const txn = await contract.createPortal(dbThreadID, appID, {
+      gasLimit: 50000000,
+    });
     await txn.wait();
     return txn;
   };
