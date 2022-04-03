@@ -53,13 +53,22 @@ export const Home = () => {
     );
     k.then((r) => console.log(r));
 
+    login();
+  }, []);
+
+  const login = () => {
+    const verify = window.location.href.slice(
+      "http://localhost:8000/".length,
+      window.location.href.length
+    );
     axios
-      .get("http://127.0.0.1:8000/verify")
+      .get(`http://localhost:8000/${verify}`)
       .then((data) => {
         console.log(data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  };
+
   return (
     <div className={styles.landing_page}>
       <section className={styles.intro} id="intro">

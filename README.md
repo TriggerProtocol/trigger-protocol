@@ -41,9 +41,9 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 - Owning games on any of these platforms allows exposure to whole new possibilities to users on our platform. <br>
 - Users can create or join pre-existing game portals (there can be only one game portal for each game!) of their owned games which allows them to join the community and dive into the awesome NFTs inside that particular game portal. <br>
 - Each game Portal is an NFT and there are two ways using which you can be the owner of a particular Portal NFT. You can either create the portal for a particular game (if it does not exist already) which allows you to be the owner or you already own the game. The 2nd way is by minting NFTs inside that portal which will allow users to own a fraction of that Portal NFT. <br>
-- Being an owner of a Portal NFT has its own benefits. Each owner can earn __% from each transaction (buying/selling of NFTs) that occurs inside that portal. How much profit each owner earns from a transaction will depend on a particular factor that needs to be decided. By staking $TGR. <br>
+- Being an owner of a Portal NFT has its own benefits. Each owner can earn \_\_% from each transaction (buying/selling of NFTs) that occurs inside that portal. How much profit each owner earns from a transaction will depend on a particular factor that needs to be decided. By staking $TGR. <br>
 - Artists and fans will mint NFTs inside the Portal which will of course be open for Buying/Selling. <br>
-- NFT liquidity pools will allow users to deposit NFTs inside vaults in exchange for $aTGR, which can be swapped with any other coins in your preferred DEX. 
+- NFT liquidity pools will allow users to deposit NFTs inside vaults in exchange for $aTGR, which can be swapped with any other coins in your preferred DEX.
 
 ## Features 🌟️
 
@@ -54,7 +54,7 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 - Platform for Artists & Gamers. <br>
 - Low-Cost NFT Minting, thanks to Polygon! <br>
 
-## Getting Started 
+## Getting Started
 
 ### <p> <b> Installing React dependencies and starting local server </b> </p>
 
@@ -115,13 +115,6 @@ Our Official Website: [Paper-House.netlify.app/](https://github.com/TriggerProto
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-
-
-
-
-
-
-
 # Basic Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
@@ -137,10 +130,11 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+
 ```
-TGR token Contract deployed to: 0x17790B1F18614E292Fa36D0F9bC3aD48DC189b52
-xTGR token Contract deployed to: 0xA90e63D4EB334755aB9d57c5928A87617457B1C1
-NFT token Contract deployed to: 0xC148783506b8f556Afe07bBbe2cc57744FcFb8a0
-Trigger Protocol Contract deployed to: 0xFfE78A0cF80B24ff9b4F0a4530a6cdD31766C3a6
+TGR token Contract deployed to: 0x94855217fD16D28d12344831C243c6BE0464077F
+xTGR token Contract deployed to: 0xea99693972768cD73547F75a595215c2FCB3F3c2
+NFT token Contract deployed to: 0x8eC784CbDe3602a9A61f757A8ABFB6D4907BF783
+Trigger Protocol Contract deployed to: 0x8567dCB41bEf8cb55Ee076522B34109619fd16E1
 
 ```
