@@ -33,6 +33,7 @@ import {
   toggleStreamRecord,
   deleteStream,
 } from "configs/livepeer.config";
+import { MintForm } from "Components/MintForm";
 export const PortalPage = () => {
   useEffect(() => {
     getPortalInstance("dsewew").then((data) => {
@@ -386,8 +387,8 @@ const NftSection = () => {
       </div>
       <PopupModal
         modalTitle="Mint NFT"
-        height="300px"
-        width="400px"
+        height="fit-content"
+        width="fit-content"
         toggleModal={nftFormToggle}
         setToggleModal={(state) => {
           setNftFormToggle(state);
@@ -395,31 +396,6 @@ const NftSection = () => {
       >
         <MintForm />
       </PopupModal>
-    </div>
-  );
-};
-
-const MintForm = () => {
-  // const client = getNftStorageClient();
-  // async function storeNft() {
-  //   const imageFile = new File([someBinaryImageData], "nft.png", {
-  //     type: "image/png",
-  //   });
-  //   const metadata = await client.store({
-  //     name: "My sweet NFT",
-  //     description: "Just try to funge it. You can't do it.",
-  //     image: imageFile,
-  //   });
-  //   return metadata;
-  // }
-  // function handleMint() {
-  //   storeNft()
-  //     .then(() => {})
-  //     .catch(() => {});
-  // }
-  return (
-    <div className="">
-      <button>Mint</button>
     </div>
   );
 };

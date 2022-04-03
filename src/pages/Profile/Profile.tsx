@@ -106,7 +106,7 @@ type gameData = {
   appid: string;
   gameName: string;
   shortDescription: string;
-  gameThumbnail: string;
+  gameThumbail: string;
 };
 const MyGames = () => {
  
@@ -144,7 +144,7 @@ const MyGames = () => {
         gameData.gameName,
         String(gameData.appid),
         gameData.shortDescription,
-        gameData.gameThumbnail,
+        gameData.gameThumbail,
         accountData?.address
       )
         .then((data) => {
@@ -173,7 +173,7 @@ const MyGames = () => {
             <PortalCard
               gameTitle={data.gameName}
               gameDescription={data.shortDescription}
-              gameThumbnail={data.gameThumbnail}
+              gameThumbnail={data.gameThumbail}
               createPortal={true}
               handleClick={() => handleCreatePortal(data)}
             />

@@ -10,7 +10,7 @@ import portal_thumb from "../../assets/images/portal_thumb.png";
 export const PortalCard = ({
   gameTitle,
   gameDescription,
-  gameThumbnail = portal_thumb,
+  gameThumbnail,
   createPortal,
   handleClick,
 }: {
@@ -23,7 +23,7 @@ export const PortalCard = ({
   return (
     <div className={styles.portal_card}>
       <img
-        src={gameThumbnail}
+        src={`${gameThumbnail}`}
         alt="portal_thumbnail"
         id={styles.portal_thumb}
       />
