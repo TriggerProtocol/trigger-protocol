@@ -1,0 +1,97 @@
+@import "../../styles/variables";
+
+.mint_form_wrapper {
+}
+
+#red {
+  color: red;
+}
+
+.form_item_wrapper {
+  display: flex;
+  width: fit-content;
+
+  .item {
+    margin-right: 10px;
+    display: grid;
+    grid-gap: 10px;
+
+    label {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
+
+    .upload_svg {
+      border: 2px solid white;
+      border-radius: 10px;
+      border-style: dashed;
+      height: 250px;
+      width: 100%;
+      padding: 10px;
+
+      #upload_svg {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        padding: 10px;
+      }
+    }
+  }
+
+  #clip {
+    margin-right: 0px;
+  }
+}
+
+.form_item {
+  width: 100%;
+  border-radius: 7px;
+  margin-top: 10px;
+
+  .input_box {
+    background-color: $input-box;
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+    margin-top: 5px;
+
+    input,
+    textarea {
+      background: none;
+      border: none;
+      height: 35px;
+      width: 100%;
+    }
+
+    textarea {
+      resize: none;
+      height: 150px;
+    }
+  }
+}
+
+.setting_item {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  p {
+    margin-right: 10px;
+  }
+  button {
+    background-color: $status-red;
+  }
+}
+
+.toogles {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.mint_btn {
+    margin-top: 10px;
+    width: 100px;
+}

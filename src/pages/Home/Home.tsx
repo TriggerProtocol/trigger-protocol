@@ -22,9 +22,9 @@ import axios from "axios";
 
 export const Home = () => {
   useEffect(() => {
-    const data = { userId: "76561199061887574" };
+    const data = { userId: "76561198840657373" };
     axios
-      .post("http://127.0.0.1:8000/tgr-api/owned-games", data)
+      .post("https://trigger-protocol-api.herokuapp.com/tgr-api/owned-games", data)
       .then((r) => console.log(r))
       .catch((err) => {
         console.log(err);
@@ -58,11 +58,11 @@ export const Home = () => {
 
   const login = () => {
     const verify = window.location.href.slice(
-      "http://localhost:8000/".length,
+      "http://localhost:3000/".length,
       window.location.href.length
     );
     axios
-      .get(`http://localhost:8000/${verify}`)
+      .get(`https://trigger-protocol-api.herokuapp.com/${verify}`)
       .then((data) => {
         console.log(data);
       })
@@ -73,7 +73,7 @@ export const Home = () => {
     <div className={styles.landing_page}>
       <section className={styles.intro} id="intro">
         <Intro />
-        <a className={styles.scroll} href="http://127.0.0.1:8000/authenticate">
+        <a className={styles.scroll} href="https://trigger-protocol-api.herokuapp.com/authenticate">
           <ScrollDown />
         </a>
       </section>
