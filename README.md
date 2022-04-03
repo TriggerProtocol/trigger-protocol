@@ -63,7 +63,7 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 
 ```
 git clone https://github.com/TriggerProtocol/trigger-protocol.git
-cd client/
+cd trigger-protocol/
 npm install
 npm start
 ```
@@ -72,7 +72,7 @@ npm start
 
 ```
 git clone git clone https://github.com/TriggerProtocol/trigger-protocol.git
-cd client/
+cd trigger-protocol/
 yarn install
 yarn start
 ```
