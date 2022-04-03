@@ -10,13 +10,13 @@ import portal_thumb from "../../assets/images/portal_thumb.png";
 export const PortalCard = ({
   gameTitle,
   gameDescription,
-  gameThumbnail,
+  gameThumbnail = portal_thumb,
   createPortal,
   handleClick,
 }: {
   gameTitle: string;
-  gameDescription: string;
-  gameThumbnail: string;
+  gameDescription?: string;
+  gameThumbnail?: string;
   createPortal?: boolean;
   handleClick: () => void;
 }) => {
