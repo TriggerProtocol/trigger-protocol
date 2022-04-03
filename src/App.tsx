@@ -27,8 +27,8 @@ function App() {
         <Navbar />
         <main className="container">
           <Routes>
-            <Route path="/*" element={<Home />} />
-            <Route path="dev" element={<PortalCard />} />
+            <Route path="/" element={<Home />} />
+            {/* <Route path="dev" element={<PortalCard />} /> */}
             <Route path="/portal/:portalId" element={<PortalPage />} />
             <Route path="/explore-portals/" element={<ExplorePortalsPage />} />
             <Route path="/profile" element={<Profile />} />

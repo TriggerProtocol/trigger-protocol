@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { StreamLayout } from "Components/StreamLayout";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./live-stream-dashboard.module.scss";
 import { copyTextToClipboard } from "utils";
 import { getStreamData, toggleStreamRecord } from "configs/livepeer.config";
+import {
+  deleteStreamInstance,
+  getStreamInstanceId,
+  IStreamData,
+} from "configs/textile.io.configs";
 type streamdataType = {
   playbackId: string;
   streamKey: string;
@@ -14,48 +19,82 @@ type streamdataType = {
 
 export const LiveStreamDashboard = () => {
   const { id } = useParams();
-  const [streamData, setStreamData] = useState<streamdataType>({
+  const navigator = useNavigate();
+  const [livePeerData, setLivePeerData] = useState<streamdataType>({
     record: false,
     isActive: false,
     playbackId: "",
     streamKey: "",
     id: "",
   });
+  const [streamData, setStreamData] = useState<IStreamData>({
+    creatorAddress: "",
+    _id: "",
+    streamName: "",
+    streamId: "",
+    createdAt: "",
+    portalId: "",
+    appID: "",
+  });
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (id) {
-      getStreamData(id).then(({ data }) => {
-        setStreamData(data);
-        console.log(data);
-        setLoading(false);
+      getStreamInstanceId(id).then((data) => {
+        let streamDataDb: IStreamData = data[0];
+        getStreamData(streamDataDb.streamId).then(({ data }) => {
+          setLivePeerData(data);
+          setStreamData(streamDataDb);
+          setLoading(false);
+        });
       });
     }
   }, []);
+
   useEffect(() => {
     let interval: any;
-    if (id && !loading && !streamData.isActive) {
-      interval = setInterval(() => {
-        getStreamData(id).then(({ data }) => {
+    interval = setInterval(() => {
+      getStreamData(streamData.streamId)
+        .then(({ data }) => {
           if (data.isActive) {
-            setStreamData(data);
+            console.log(data);
+            setLivePeerData(data);
+          } else {
+            console.log("not active");
+            setLivePeerData({ ...livePeerData, isActive: false });
           }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      }, 10000);
-    }
+    }, 5000);
+
     return () => {
       clearInterval(interval);
     };
-  });
-  function handleRecordToggle() {
-    toggleStreamRecord(streamData.id, !streamData.isActive).then((data) => {
-      console.log(data);
-      setStreamData({ ...streamData, record: !streamData.isActive });
-    });
+  }, [streamData]);
+  // function handleRecordToggle() {
+  //   toggleStreamRecord(streamData.id, !streamData.isActive).then((data) => {
+  //     console.log(data);
+  //     setStreamData({ ...streamData, record: !streamData.isActive });
+  //   });
+  // }
+  function handleDeleteStream() {
+    if (Boolean(streamData._id)) {
+      deleteStreamInstance(streamData._id)
+        .then((data) => {
+          navigator("/portal/1");
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
   return loading ? (
     <div className="">loading</div>
   ) : (
-    <StreamLayout streamer={true} streamData={streamData}>
+    <StreamLayout streamer={true} streamData={livePeerData}>
       <div className={styles.steam_connection_details}>
         <p className="heading2" id={styles.head}>
           Steam connection details
@@ -66,16 +105,30 @@ export const LiveStreamDashboard = () => {
               <p>Ingest URL: </p>
               <p>rtmp://rtmp.livepeer.com/live/</p>
             </div>
-            <button className="btn-sm">Copy</button>
+            <button
+              className="btn-sm"
+              onClick={(e) => {
+                e.currentTarget.innerHTML = "Copied";
+                copyTextToClipboard("rtmp://rtmp.livepeer.com/live/");
+
+                e.currentTarget.innerHTML = "Copy";
+              }}
+            >
+              Copy
+            </button>
           </div>
           <div className={styles.item}>
             <div className={styles.url}>
               <p>Stream Key: </p>
-              <p>{streamData?.streamKey}</p>
+              <p>{livePeerData?.streamKey}</p>
             </div>
             <button
               className="btn-sm"
-              onClick={(e) => (e.currentTarget.value = "test")}
+              onClick={(e) => {
+                e.currentTarget.innerHTML = "Copied";
+                copyTextToClipboard(livePeerData?.streamKey);
+                e.currentTarget.innerHTML = "Copy";
+              }}
             >
               Copy
             </button>
@@ -84,10 +137,22 @@ export const LiveStreamDashboard = () => {
             <div className={styles.url}>
               <p>Playback URL: </p>
               <p>
-                https://cdn.livepeer.com/hls/{streamData?.playbackId}/index.m3u8
+                https://cdn.livepeer.com/hls/{livePeerData?.playbackId}
+                /index.m3u8
               </p>
             </div>
-            <button className="btn-sm">Copy</button>
+            <button
+              className="btn-sm"
+              onClick={(e) => {
+                e.currentTarget.innerHTML = "Copied";
+                copyTextToClipboard(` https://cdn.livepeer.com/hls/${livePeerData?.playbackId}
+                /index.m3u8`);
+                e.currentTarget.innerHTML = "Copy";
+
+              }}
+            >
+              Copy
+            </button>
           </div>
         </div>
       </div>
@@ -98,9 +163,9 @@ export const LiveStreamDashboard = () => {
           <label
             htmlFor=""
             className="switch-toggle"
-            onClick={() => handleRecordToggle()}
+            // onClick={() => handleRecordToggle()}
           >
-            <input type="checkbox" checked={streamData.record === true} />
+            <input type="checkbox" checked={livePeerData.record === true} />
           </label>
         </div>{" "}
         <div className={styles.setting_item}>
@@ -115,7 +180,9 @@ export const LiveStreamDashboard = () => {
           </label>
         </div>
         <div className={styles.setting_item}>
-          <button className="btn-md">End Stream</button>
+          <button className="btn-md" onClick={() => handleDeleteStream()}>
+            End Stream
+          </button>
         </div>
         <div className={styles.share}></div>
       </div>

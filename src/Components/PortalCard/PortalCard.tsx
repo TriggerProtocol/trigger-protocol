@@ -7,14 +7,30 @@ import styles from "./PortalCard.module.scss";
 import avatar from "../../assets/images/avatar.png";
 import portal_thumb from "../../assets/images/portal_thumb.png";
 
-export const PortalCard = ({ createPortal }: { createPortal?: boolean }) => {
+export const PortalCard = ({
+  gameTitle,
+  gameDescription,
+  gameThumbnail = portal_thumb,
+  createPortal,
+  handleClick,
+}: {
+  gameTitle: string;
+  gameDescription: string;
+  gameThumbnail: string;
+  createPortal?: boolean;
+  handleClick: () => void;
+}) => {
   return (
     <div className={styles.portal_card}>
-      <img src={portal_thumb} alt="portal_thumbnail" id={styles.portal_thumb} />
+      <img
+        src={gameThumbnail}
+        alt="portal_thumbnail"
+        id={styles.portal_thumb}
+      />
       <div className={styles.portal_details_wrapper}>
         {/* Portal Details */}
         <div className={styles.portal_details}>
-          <h3>Little Nightmares</h3>
+          <h3>{gameTitle}</h3>
           {!createPortal ? (
             <div className={styles.portal_volume}>
               <p>Total Volume</p>
@@ -23,11 +39,7 @@ export const PortalCard = ({ createPortal }: { createPortal?: boolean }) => {
           ) : (
             <div className={styles.portal_volume}>
               <h4>Description</h4>
-              <p>
-                Little Nightmares is a puzzle-platform horror adventure game
-                developed by Tarsier Studios and published by Bandai Namco
-                Entertainment. Set in a mysterious world...
-              </p>
+              <p>{gameDescription}</p>
             </div>
           )}
         </div>
@@ -51,7 +63,9 @@ export const PortalCard = ({ createPortal }: { createPortal?: boolean }) => {
 
       {createPortal ? (
         <div className={`${styles.join_button} `}>
-          <button className="btn-sm">Create Portal</button>
+          <button className="btn-sm" onClick={() => handleClick()}>
+            Create Portal
+          </button>
         </div>
       ) : (
         <div className={`${styles.join_button} `}>

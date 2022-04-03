@@ -20,22 +20,44 @@ export interface IStreamData {
   creatorAddress: string;
   createdAt: string;
 }
+export interface IPortalData {
+  _id: string;
+  portalName: string;
+  appID: string;
+  description: string;
+  thumbnail: string;
+  creator: string;
+}
 async function getClient() {
   const client = await Client.withKeyInfo(keyInfo);
   return client;
 }
 
-export async function createPortalInstance() {
+export async function createPortalInstance(
+  portalName: string,
+  appId: string,
+  description: string,
+  thumbnail: string,
+  creator: string
+) {
   const client = await getClient();
-  const data = {
-    _id: "dsewew",
-    portalName: "sasasa",
-    appID: "dsdsdsds",
-    descrtiption: "dsdwdsds",
-    thumbnail: "sasasasa",
-    creator: "e3232swdw",
+  const query = new Where("appID").eq(appId);
+  const exist = await client.find(threadId, portalCollectionName, query);
+  const data: IPortalData = {
+    _id: uuidv4(),
+    portalName: portalName,
+    appID: appId,
+    description: description,
+    thumbnail: thumbnail,
+    creator: creator,
   };
-  await client.create(threadId, portalCollectionName, [data]);
+    console.log(data)
+
+  if (exist.length == 0) {
+    return await client.create(threadId, portalCollectionName, [data]);
+  }
+  throw Error("already exit");
+  // return { exist, data };
 }
 export async function getAllPortalInstances() {
   const client = await getClient();
@@ -43,14 +65,14 @@ export async function getAllPortalInstances() {
 }
 export async function getPortalInstance(id: string) {
   const client = await getClient();
-  return await client.find(threadId, portalCollectionName, {});
+  const query = new Where("_id").eq(id);
+  return await client.find(threadId, portalCollectionName, query);
 }
 export async function getStreamInstance(
   portalId: string
-): Promise<IStreamData[] | IStreamData> {
+): Promise<IStreamData[]> {
   const client = await getClient();
   const query = new Where("portalId").eq(portalId);
-  console.log(query);
   return await client.find<IStreamData>(threadId, streamsCollectionName, query);
 }
 export async function getStreamInstanceId(id: string): Promise<IStreamData[]> {
@@ -77,5 +99,9 @@ export async function createStreamInstance(
     createdAt: Date.now().toString(),
   };
   console.log(data);
-  await client.create(threadId, streamsCollectionName, [data]);
+  return await client.create(threadId, streamsCollectionName, [data]);
+}
+export async function deleteStreamInstance(id: string) {
+  const client = await getClient();
+  return await client.delete(threadId, streamsCollectionName, [id]);
 }

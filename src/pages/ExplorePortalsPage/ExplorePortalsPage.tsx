@@ -23,7 +23,7 @@ const TrendingPortal = () => {
       </div>
       <div className={styles.portal_card}>
         <Link to="/portal/1">
-          <PortalCard />
+          {/* <PortalCard /> */}
         </Link>
       </div>
       <div className={styles.portal_details}>
@@ -88,7 +88,7 @@ const PortalsList = () => {
     <div className={styles.portals_list_container}>
       {[1, 2, 3, 4, 5].map((index) => (
         <Link to="/portal/1">
-          <PortalCard />
+          {/* <PortalCard /> */}
         </Link>
       ))}
     </div>

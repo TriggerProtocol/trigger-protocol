@@ -1,11 +1,17 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useAccount, useConnect } from "wagmi";
 // styles
 import styles from "./Profile.module.scss";
 import "styles/globals.css";
 import { PortalCard } from "Components/PortalCard";
 import { NFTcard } from "Components/NFTcard";
+import { createPortalInstance } from "configs/textile.io.configs";
+import { useTriggerProtocolContract } from "hooks";
 
+const axiosApiInstance = axios.create({
+  baseURL: "https://trigger-protocol-api.herokuapp.com/",
+});
 export const Profile = () => {
   const [currentNavState, setCurrentNavState] = useState(0);
 
@@ -77,9 +83,9 @@ const ProfileNavigator = ({
 const PortalsJoined = () => {
   return (
     <>
-      {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => (
+      {/* {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => (
         <PortalCard />
-      ))}
+      ))} */}
     </>
   );
 };
@@ -93,13 +99,108 @@ const MyNfts = () => {
     </>
   );
 };
-
+type gameData = {
+  appid: string;
+  gameName: string;
+  shortDescription: string;
+  gameThumbnail: string;
+};
 const MyGames = () => {
+  const gdata: gameData[] = [
+    {
+      appid: "214521",
+      gameName: "Tom Clancy's Rainbow Six® Siege",
+      shortDescription:
+        "Tom Clancy's Rainbow Six Siege is the latest installment of the acclaimed first-person shooter franchise developed by the renowned Ubisoft Montreal studio.",
+      gameThumbnail:
+        "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1647433052",
+    },
+    {
+      appid: "3234",
+      gameName: "ARK: Survival Evolved",
+      shortDescription:
+        "Stranded on the shores of a mysterious island, you must learn to survive. Use your cunning to kill or tame the primeval creatures roaming the land, and encounter other players to survive, dominate... and escape!",
+      gameThumbnail:
+        "https://cdn.akamai.steamstatic.com/steam/apps/346110/header.jpg?t=1644270935",
+    },
+    {
+      appid: "21232",
+      gameName: "Counter-Strike: Global Offensive",
+      shortDescription:
+        "Counter-Strike: Global Offensive (CS:GO) расширяет границы ураганной командной игры, представленной ещё 19 лет назад. CS:GO включает в себя новые карты, персонажей, оружие и режимы игры, а также улучшает классическую составляющую CS (de_dust2 и т. п.).",
+      gameThumbnail:
+        "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1641233427",
+    },
+  ];
+  const [ownedGames, setOwnedGames] = useState<Array<gameData>>(gdata);
+  const [loading, setLoading] = useState(true);
+  const [{ data: accountData }, disconnect] = useAccount({
+    fetchEns: true,
+  });
+  const [{ data: walletConnection, error }] = useConnect();
+
+  const { createPortal } = useTriggerProtocolContract();
+  useEffect(() => {
+    const body = { userId: "76561198840657373" };
+    axios
+      .post(
+        "https://trigger-protocol-api.herokuapp.com/tgr-api/owned-games",
+        body
+      )
+      .then((data) => {
+        if (data.status === 200) {
+          console.log(data);
+          setOwnedGames(data.data);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //create new portal if portal not crreated
+  function handleCreatePortal(gameData: any) {
+    if (walletConnection.connected && accountData?.address) {
+      createPortalInstance(
+        gameData.gameName,
+        String(gameData.appid),
+        gameData.shortDescription,
+        gameData.gameThumbnail,
+        accountData?.address
+      )
+        .then((data) => {
+          console.log(data);
+          createPortal({ dbThreadID: data[0], appID: gameData.appid })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("not connected");
+    }
+  }
   return (
     <>
-      {[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => (
-        <PortalCard createPortal={true} />
-      ))}
+      {false
+        ? "Loading"
+        : ownedGames.length !== 0
+        ? ownedGames.map((data) => (
+            <PortalCard
+              gameTitle={data.gameName}
+              gameDescription={data.shortDescription}
+              gameThumbnail={data.gameThumbnail}
+              createPortal={true}
+              handleClick={() => handleCreatePortal(data)}
+            />
+          ))
+        : "no games"}
     </>
   );
 };

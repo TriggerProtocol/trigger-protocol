@@ -35,7 +35,7 @@ export const StreamLayout: React.FC<PropType> = ({
           },
         ],
       });
-
+      console.log("setting player")
       // player.hlsQualitySelector();
 
       player.on("error", () => {
@@ -43,8 +43,8 @@ export const StreamLayout: React.FC<PropType> = ({
           `https://cdn.livepeer.com/hls/${streamData.playbackId}/index.m3u8`
         );
       });
-    }
-  }, [streamData.isActive]);
+    } 
+  }, [streamData]);
 
   const domain = encodeURIComponent("https://trigger.com");
   console.log(domain);

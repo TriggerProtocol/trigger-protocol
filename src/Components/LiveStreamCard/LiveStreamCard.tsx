@@ -12,7 +12,7 @@ type props = {
 };
 export const LiveStreamCard: React.FC<props> = ({
   streamName,
-  creatorAddress,
+  creatorAddress = "test",
   createdAt,
 }) => {
   return (
