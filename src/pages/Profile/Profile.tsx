@@ -6,7 +6,10 @@ import styles from "./Profile.module.scss";
 import "styles/globals.css";
 import { PortalCard } from "Components/PortalCard";
 import { NFTcard } from "Components/NFTcard";
-import { createPortalInstance } from "configs/textile.io.configs";
+import {
+  createPortalInstance,
+  undoCreatePortal,
+} from "configs/textile.io.configs";
 import { useTriggerProtocolContract } from "hooks";
 
 const axiosApiInstance = axios.create({
@@ -106,33 +109,8 @@ type gameData = {
   gameThumbnail: string;
 };
 const MyGames = () => {
-  const gdata: gameData[] = [
-    {
-      appid: "214521",
-      gameName: "Tom Clancy's Rainbow Six® Siege",
-      shortDescription:
-        "Tom Clancy's Rainbow Six Siege is the latest installment of the acclaimed first-person shooter franchise developed by the renowned Ubisoft Montreal studio.",
-      gameThumbnail:
-        "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1647433052",
-    },
-    {
-      appid: "3234",
-      gameName: "ARK: Survival Evolved",
-      shortDescription:
-        "Stranded on the shores of a mysterious island, you must learn to survive. Use your cunning to kill or tame the primeval creatures roaming the land, and encounter other players to survive, dominate... and escape!",
-      gameThumbnail:
-        "https://cdn.akamai.steamstatic.com/steam/apps/346110/header.jpg?t=1644270935",
-    },
-    {
-      appid: "21232",
-      gameName: "Counter-Strike: Global Offensive",
-      shortDescription:
-        "Counter-Strike: Global Offensive (CS:GO) расширяет границы ураганной командной игры, представленной ещё 19 лет назад. CS:GO включает в себя новые карты, персонажей, оружие и режимы игры, а также улучшает классическую составляющую CS (de_dust2 и т. п.).",
-      gameThumbnail:
-        "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1641233427",
-    },
-  ];
-  const [ownedGames, setOwnedGames] = useState<Array<gameData>>(gdata);
+ 
+  const [ownedGames, setOwnedGames] = useState<Array<gameData>>([]);
   const [loading, setLoading] = useState(true);
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
@@ -176,7 +154,7 @@ const MyGames = () => {
               console.log(data);
             })
             .catch((err) => {
-              console.log(err);
+              undoCreatePortal(data[0]).then(() => {});
             });
         })
         .catch((err) => {
