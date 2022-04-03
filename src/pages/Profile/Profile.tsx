@@ -103,7 +103,7 @@ type gameData = {
   appid: string;
   gameName: string;
   shortDescription: string;
-  gameThumbnail: string;
+  gameThumbail: string;
 };
 const MyGames = () => {
   const gdata: gameData[] = [
@@ -112,7 +112,7 @@ const MyGames = () => {
       gameName: "Tom Clancy's Rainbow Six® Siege",
       shortDescription:
         "Tom Clancy's Rainbow Six Siege is the latest installment of the acclaimed first-person shooter franchise developed by the renowned Ubisoft Montreal studio.",
-      gameThumbnail:
+      gameThumbail:
         "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1647433052",
     },
     {
@@ -120,7 +120,7 @@ const MyGames = () => {
       gameName: "ARK: Survival Evolved",
       shortDescription:
         "Stranded on the shores of a mysterious island, you must learn to survive. Use your cunning to kill or tame the primeval creatures roaming the land, and encounter other players to survive, dominate... and escape!",
-      gameThumbnail:
+      gameThumbail:
         "https://cdn.akamai.steamstatic.com/steam/apps/346110/header.jpg?t=1644270935",
     },
     {
@@ -128,7 +128,7 @@ const MyGames = () => {
       gameName: "Counter-Strike: Global Offensive",
       shortDescription:
         "Counter-Strike: Global Offensive (CS:GO) расширяет границы ураганной командной игры, представленной ещё 19 лет назад. CS:GO включает в себя новые карты, персонажей, оружие и режимы игры, а также улучшает классическую составляющую CS (de_dust2 и т. п.).",
-      gameThumbnail:
+      gameThumbail:
         "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1641233427",
     },
   ];
@@ -166,7 +166,7 @@ const MyGames = () => {
         gameData.gameName,
         String(gameData.appid),
         gameData.shortDescription,
-        gameData.gameThumbnail,
+        gameData.gameThumbail,
         accountData?.address
       )
         .then((data) => {
@@ -195,7 +195,7 @@ const MyGames = () => {
             <PortalCard
               gameTitle={data.gameName}
               gameDescription={data.shortDescription}
-              gameThumbnail={data.gameThumbnail}
+              gameThumbnail={data.gameThumbail}
               createPortal={true}
               handleClick={() => handleCreatePortal(data)}
             />
