@@ -93,10 +93,10 @@ Our Official Website: [trigger-protocol-5h8ni4.argoapp.io](https://trigger-proto
 ```json
 {
   "80001": {
-    "TriggerProtocolContract": 0x8567dCB41bEf8cb55Ee076522B34109619fd16E1,
-    "TGR ERC20 Token Contract": 0x94855217fD16D28d12344831C243c6BE0464077F,
-    "xTGR ERC20 Token Contract": 0xea99693972768cD73547F75a595215c2FCB3F3c2,
-    "TGR NFT Contract": 0x8eC784CbDe3602a9A61f757A8ABFB6D4907BF783
+    "TriggerProtocolContract":"0x8567dCB41bEf8cb55Ee076522B34109619fd16E1",
+    "TGR ERC20 Token Contract": "0x94855217fD16D28d12344831C243c6BE0464077F",
+    "xTGR ERC20 Token Contract": "0xea99693972768cD73547F75a595215c2FCB3F3c2",
+    "TGR NFT Contract": "0x8eC784CbDe3602a9A61f757A8ABFB6D4907BF783"
   }
 }
 ```
