@@ -156,3 +156,11 @@
     margin-bottom: 10px;
   }
 }
+
+button:disabled {
+  background-color: rgba($trigger-yellow, 0.6);
+  cursor: default;
+  &:hover {
+    background-color: rgba($trigger-yellow, 0.6);
+  }
+}

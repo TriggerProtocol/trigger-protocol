@@ -372,8 +372,12 @@ const LiveStreamSection = () => {
                 <input type="checkbox" />
               </label>{" "}
             </div>
-            <button className="btn-md" onClick={(e) => handleCreateStream(e)}>
-              Create Stream{" "}
+            <button
+              className="btn-md"
+              disabled={walletConnection.connected === false}
+              onClick={(e) => handleCreateStream(e)}
+            >
+              {walletConnection.connected ? "Create Stream" : "Conect Wallet"}
             </button>
           </form>
         )}
