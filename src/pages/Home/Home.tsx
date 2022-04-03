@@ -24,7 +24,7 @@ export const Home = () => {
   useEffect(() => {
     const data = { userId: "76561199061887574" };
     axios
-      .post("https://trigger-protocol-api.herokuapp.com/tgr-api/owned-games", data)
+      .post("http://127.0.0.1:8000/tgr-api/owned-games", data)
       .then((r) => console.log(r))
       .catch((err) => {
         console.log(err);
@@ -54,7 +54,7 @@ export const Home = () => {
     k.then((r) => console.log(r));
 
     axios
-      .get("http://127.0.0.1:8000/auth/steam/logged-data")
+      .get("http://127.0.0.1:8000/verify")
       .then((data) => {
         console.log(data);
       })
@@ -64,7 +64,7 @@ export const Home = () => {
     <div className={styles.landing_page}>
       <section className={styles.intro} id="intro">
         <Intro />
-        <a className={styles.scroll} href="http://127.0.0.1:8000/auth/steam">
+        <a className={styles.scroll} href="http://127.0.0.1:8000/authenticate">
           <ScrollDown />
         </a>
       </section>
