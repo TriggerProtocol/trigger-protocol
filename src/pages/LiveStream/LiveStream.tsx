@@ -45,15 +45,40 @@ export const LiveStream: React.FC = () => {
   useEffect(() => {
     if (id) {
       getStreamInstanceId(id).then((data) => {
-        const { streamId } = data[0];
-        setStreamData(data[0]);
-        getStreamData(streamId).then(({ data }) => {
+        let streamDataDb: IStreamData = data[0];
+        getStreamData(streamDataDb.streamId).then(({ data }) => {
           setLivePeerData(data);
+          setStreamData(streamDataDb);
           setLoading(false);
         });
       });
     }
   }, []);
+
+  useEffect(() => {
+    let interval: any;
+    interval = setInterval(() => {
+      getStreamData(streamData.streamId)
+        .then(({ data }) => {
+          if (data.isActive) {
+            console.log(data);
+            setLivePeerData(data);
+          } else {
+            console.log("not active");
+            setLivePeerData({ ...livePeerData, isActive: false });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [streamData]);
+
+
   return loading ? (
     <div className="">loading</div>
   ) : (
