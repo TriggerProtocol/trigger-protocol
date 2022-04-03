@@ -8,7 +8,11 @@ Trigger is a platform to onboard gamers and digital artists into the space of bl
 
 ## Contents
 
-- [What is Trigger Protocol?](#What-is-Trigger-Protocol?)
+- [What is Trigger Protocol?](#what-is-trigger-protocol)
+- [Benefits for Gamers 🎮️](#benefits-for-gamers-%EF%B8%8F)
+- [Benefits for Game Artists and Fans 🎨️](#benefits-for-game-artists-and-fans-%EF%B8%8F)
+- [How Trigger Actually Works? 🚀](#how-trigger-actually-works-)
+- [Features 🌟️](#features-%EF%B8%8F)
 - [Getting Started](#Getting-Started)
 - [Project Roadmap](#Project-Roadmap)
 - [Live Demo](#Live-Demo)
