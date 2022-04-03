@@ -43,10 +43,9 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 - Users will be able to log into our platform using their preferred way of authentication such as Steam or Epic Games etc. Once the user has logged in we will be able to get all the data of the games they own. <br>
 - Owning games on any of these platforms allows exposure to whole new possibilities to users on our platform. <br>
 - Users can create or join pre-existing game portals (there can be only one game portal for each game!) of their owned games which allows them to join the community and dive into the awesome NFTs inside that particular game portal. <br>
-- Each game Portal is an NFT and there are two ways using which you can be the owner of a particular Portal NFT. You can either create the portal for a particular game (if it does not exist already) which allows you to be the owner or you already own the game. The 2nd way is by minting NFTs inside that portal which will allow users to own a fraction of that Portal NFT. <br>
-- Being an owner of a Portal NFT has its own benefits. Each owner can earn \_\_% from each transaction (buying/selling of NFTs) that occurs inside that portal. How much profit each owner earns from a transaction will depend on a particular factor that needs to be decided. By staking $TGR. <br>
+- There are two ways using which you can be the owner of a particular Portal NFT. You can either create the portal for a particular game (if it does not exist already) which allows you to be the owner or you already own the game. The 2nd way is by minting NFTs inside that portal which will allow users to own a fraction of that Portal NFT. <br>
+- Being an owner of a Portal has its own benefits. Each owner can earn some % from each transaction (buying/selling of NFTs) that occurs inside that portal. How much profit each owner earns from a transaction will depend on a how much xTGR token one is staking. <br>
 - Artists and fans will mint NFTs inside the Portal which will of course be open for Buying/Selling. <br>
-- NFT liquidity pools will allow users to deposit NFTs inside vaults in exchange for $aTGR, which can be swapped with any other coins in your preferred DEX.
 
 ## Features 🌟️
 
