@@ -141,7 +141,7 @@ const MyGames = () => {
 
   const { createPortal } = useTriggerProtocolContract();
   useEffect(() => {
-    const body = { userId: "76561199061887574" };
+    const body = { userId: "76561198840657373" };
     axios
       .post(
         "https://trigger-protocol-api.herokuapp.com/tgr-api/owned-games",
@@ -150,7 +150,7 @@ const MyGames = () => {
       .then((data) => {
         if (data.status === 200) {
           console.log(data);
-          // setOwnedGames(data.data);
+          setOwnedGames(data.data);
           setLoading(false);
         }
       })
