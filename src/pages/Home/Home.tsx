@@ -73,7 +73,7 @@ export const Home = () => {
     <div className={styles.landing_page}>
       <section className={styles.intro} id="intro">
         <Intro />
-        <a className={styles.scroll} href="https://trigger-protocol-api.herokuapp.com/authenticate">
+        <a className={styles.scroll} href="#hiw">
           <ScrollDown />
         </a>
       </section>
