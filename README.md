@@ -64,12 +64,22 @@ Trigger helps the awesome community of gamers and digital game artists and fan a
 ## Getting Started
 
 ### <p> <b> Installing React dependencies and starting local server </b> </p>
+
 ```
 git clone git clone https://github.com/TriggerProtocol/trigger-protocol.git
 cd trigger-protocol/
 yarn install
 yarn start
 ```
+
+<p align="center">OR</p>
+```
+git clone https://github.com/TriggerProtocol/trigger-protocol.git
+cd trigger-protocol/
+npm install
+npm start
+```
+
 
 ## Project Roadmap
 

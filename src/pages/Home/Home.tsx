@@ -226,7 +226,7 @@ const Roadmap = () => {
         <div className={styles.roadmap_card}>
           <div className={styles.glow1}></div>
           <div className={styles.glow2}></div>
-          <h3>3rd Jan 2021</h3>
+          <h3>3rd March 2021</h3>
           <p>Created plan and started descussing on features and ideas</p>
         </div>
       </div>
@@ -235,7 +235,7 @@ const Roadmap = () => {
         <div className={styles.roadmap_card} id={styles.alternate}>
           <div className={styles.glow1}></div>
           <div className={styles.glow2}></div>
-          <h3>5th Jan 2021</h3>
+          <h3>5th March 2021</h3>
           <p>
             Designed the logo, created the wireframe and started with UI/UX
             designing
@@ -247,7 +247,7 @@ const Roadmap = () => {
         <div className={styles.roadmap_card} id={styles.end}>
           {/* <div className={styles.glow1}></div>
           <div className={styles.glow2}></div> */}
-          <h3>17th Jan 2021</h3>
+          <h3>17th March 2021</h3>
           <p>
             Initialized the project and started building the smart contracts and
             frontend
